@@ -6,15 +6,15 @@
 #    By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/24 18:57:01 by zakariyaham       #+#    #+#              #
-#    Updated: 2022/11/30 17:40:39 by zhamdouc         ###   ########.fr        #
+#    Updated: 2023/04/21 18:14:54 by zhamdouc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = pipex
+NAME = cube3d
 
 SRC_PATH = ./srcs/
 SRC = ft_main.c \
-	ft_path.c ft_check.c ft_free.c ft_child.c
+	ft_parsing.c ft_utils.c
 SRCS = $(addprefix ${SRC_PATH}, ${SRC})
 
 OBJ_PATH	= obj/
@@ -27,7 +27,7 @@ INC = -I./includes/
 
 LIBS = -L./libs/libft -lft -L./libs/printf -lprintf -L./libs/gnl -lget_next_line # -L./libs/minilibx-linux -lmlx -lXext -lX11 -lm -lz
 
-FLAGS = -Wall -Wextra -Werror -MMD -MP -g
+FLAGS = -Wall -Wextra -Werror -MMD -MP #-g
 
 ${NAME} : ${OBJS}
 	make -C ./libs/libft/

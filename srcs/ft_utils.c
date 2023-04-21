@@ -1,21 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_main.c                                          :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/17 19:16:08 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/04/21 17:42:32 by zhamdouc         ###   ########.fr       */
+/*   Created: 2023/04/21 18:07:29 by zhamdouc          #+#    #+#             */
+/*   Updated: 2023/04/21 18:30:51 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
 
-int	main(int argc, char **argv)
+void    free_tab(char **tab)
 {
-	if (parsing(argc, argv[1]) == 1)
-		return (1);
-	return (0);
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	//free(tab[i]);
+	free(tab);
 }
 
+void    print_tab(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		ft_printf("%s", tab[i]);
+		i++;
+	}
+}
