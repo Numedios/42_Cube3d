@@ -6,16 +6,18 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 16:55:06 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/04/24 19:34:58 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/04/25 18:31:00 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cube3d.h"
-
+//check avec map vide
 int	fill_map(int fd, char **cube_map, int len)
 {
 	int	i;
+	int	j;
 	
+	j = 0;
 	i = 0;
 	while (i < len)
 	{
@@ -29,12 +31,26 @@ int	fill_map(int fd, char **cube_map, int len)
 	while (i < len)
 	{
 		if (cube_map[i][0] == '\n')
-			return (1);
+		{
+			i++;
+			while (cube_map[i])
+			{
+				while (cube_map[i][j])
+				{
+					if (cube_map[i][j] && cube_map[i][j] !='\n' && cube_map[i][j] != ' ')
+						return (1);
+					j++;
+				}
+				j = 0;
+				i++;
+			}
+			return (0);
+		}
 		i++;
 	}
 	return (0);
 }
-
+//skip tous les espaces pas seulement ' '
 void	skip_space(char **cube_map)
 {
 	int	i;
@@ -101,18 +117,105 @@ int	no_space(char **cube_map)
 	return (0);
 }
 
-int parsing_map(int fd, char **cube_map, int len)
+// int	check_inside(char **cube_map, int len)
+// {
+// 	int	i;
+// 	int	j;
+	
+// 	i = 0;
+// 	j = 0;
+// 	while (cube_map[i][j] && cube_map[i][0] == '\n')
+// 		i++;
+// 	while (cube_map[i][j] && cube_map[i][j] == '1')
+// 		j++;
+// 	while (cube_map[i][j] && cube_map[i][j] == ' ')
+// 		j++;
+// 	if (cube_map[i][j] != '\n' && cube_map[i][j] != NULL)
+// 		return (1);
+// 	i++;
+// 	j = 0;
+// 	while (cube_map[i])
+// 	{
+// 		if (cube_map[i][j] != '1')
+// 			return (1);
+// 		while (cube_map[i][j] && (cube_map[i][j] != ' ' && cube_map[i][j] != '\n'))
+// 			j++;
+// 		if (cube_map[i][j - 1] != 1)
+// 			return (1);
+// 		j = 0;
+// 		i++;
+// 	}
+// }
+
+int	check_inside(char **cube_map, t_cube *cube)
+{
+	int	i;
+	int	j;
+
+	j = 0;	
+	i = cube->start;
+	while (cube_map[i][j] && cube_map[i][j] == '1')
+		j++;
+	while (cube_map[i][j] && (cube_map[i][j] == ' ' || (cube_map[i][j] < 14 && cube_map[i][j] > 8)))
+		j++;
+	if (cube_map[i][j] != '\n' && cube_map[i][j] != '\0')
+		return (1);
+	i++;
+	j = 0;
+	while (i < (cube->end - 1))
+	{
+		if (cube_map[i][j] != '1')
+			return (1);
+		while (cube_map[i][j] == '1' || cube_map[i][j] == '0')
+			j++;
+		// while (cube_map[i][j] && (cube_map[i][j] != ' ' && cube_map[i][j] != '\n'))
+		// 	j++;
+		if (cube_map[i][j - 1] != '1')//verifier que le dernier est bien un 1
+			return (1);
+		j = 0;
+		i++;
+	}
+	while (cube_map[i][j] && cube_map[i][j] == '1')
+		j++;
+	while (cube_map[i][j] && cube_map[i][j] == ' ')
+		j++;
+	if (cube_map[i][j] != '\n' && cube_map[i][j] != '\0')
+		return (1);
+	return (0);
+}
+
+
+void len_map_2(char **cube_map, t_cube *cube)
+{
+	int	i;
+	int	j;
+	
+	i = 0;
+	while (cube_map[i][0] && cube_map[i][0] == '\n')
+		i++;
+	cube->start = i;
+	j = i;
+	while (cube_map[i][0] && cube_map[i][0] != '\n')
+	{
+		j++;
+		i++;
+	}
+	cube->end = j;
+}
+
+int parsing_map(int fd, char **cube_map, int len, t_cube *cube)
 {
 	if (fill_map(fd, cube_map, len) == 1)
-		return (1);
+		return (printf("Error\n"), 1);
 	skip_space(cube_map);
 	if (no_space(cube_map) == 1)
-	{
-		printf("error\n");
-		return (1);
-	}
-	else
-		print_tab(cube_map);
+		return (printf("Error\n"), 1);
+	len_map_2(cube_map, cube);
+	printf("debut :%d\n fin : %d\n", cube->start, cube->end);
+	if (check_inside(cube_map, cube) == 1)
+		return (printf("Error\n"), 1);
+	//check que la forme est correct
+	print_tab(cube_map);
 	return (0);
 }
 
@@ -150,7 +253,7 @@ int	map_init(int fd, char *argv, t_cube *cube)
 	free_tab(cube->info);
 	parsing_cube(fd, cube);
 	cube->map = malloc(sizeof(char *) * (cube->len + 1));
-	if (parsing_map(fd, cube->map, cube->len) == 1)
+	if (parsing_map(fd, cube->map, cube->len, cube) == 1)
 		return (1);
 	//print_tab(cube->map);
 	//free_tab(cube->map);

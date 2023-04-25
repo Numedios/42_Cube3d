@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/17 19:14:43 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/04/24 17:39:54 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/04/25 18:41:37 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,14 @@
 # include <stdio.h>
 # include <string.h>
 
+# define WHITE_SPACE "\t\n\v\f\r "
+
 typedef struct cube
 {
 	char **info;
 	char **map;
+	int start;
+	int end;
 	int len;
 }				t_cube;
 
