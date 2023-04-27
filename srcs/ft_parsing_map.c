@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parsing_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: zakariyahamdouchi <zakariyahamdouchi@st    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 16:55:06 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/04/25 18:31:00 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/04/26 19:40:24 by zakariyaham      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	fill_map(int fd, char **cube_map, int len)
 {
 	int	i;
 	int	j;
-	
+
 	j = 0;
 	i = 0;
 	while (i < len)
@@ -37,7 +37,7 @@ int	fill_map(int fd, char **cube_map, int len)
 			{
 				while (cube_map[i][j])
 				{
-					if (cube_map[i][j] && cube_map[i][j] !='\n' && cube_map[i][j] != ' ')
+					if (cube_map[i][j] && cube_map[i][j] !='\n' && (cube_map[i][j] != ' ' && (cube_map[i][j] > 14 && cube_map[i][j] < 8)))
 						return (1);
 					j++;
 				}
@@ -51,18 +51,19 @@ int	fill_map(int fd, char **cube_map, int len)
 	return (0);
 }
 //skip tous les espaces pas seulement ' '
+
 void	skip_space(char **cube_map)
 {
 	int	i;
-	int j;
-	int k;
+	int	j;
+	int	k;
 
 	i = 0;
 	j = 0;
 	k = 0;
 	while (cube_map[i])
 	{
-		while (cube_map[i][j] == ' ')
+		while (cube_map[i][j] == ' ' || (cube_map[i][j] < 14 && cube_map[i][j] > 8))
 			j++;
 		if (j > 0)
 		{
@@ -85,25 +86,25 @@ void	skip_space(char **cube_map)
 }
 /*
 tester qu'il ne peut avoir despace dans une ligne
-demain finir le parsing, carte entourer de mur et N S E W 
+demain finir le parsing, carte entourer de mur et N S E W
 comment faire si la map ne finis pas par un '\n' !!!
 */
 int	no_space(char **cube_map)
 {
-	int i;
-	int j;
-	
+	int	i;
+	int	j;
+
 	i = 0;
 	j = 0;
 	while (cube_map[i])
 	{
 		while (cube_map[i][j] && cube_map[i][j] != '\n')
 		{
-			if (cube_map[i][j] == ' ')
+			if (cube_map[i][j] == ' ' || (cube_map[i][j] < 14 && cube_map[i][j] > 8))
 			{
 				while (cube_map[i][j] && cube_map[i][j] != '\n')
 				{
-					if (cube_map[i][j] != ' ')
+					if (cube_map[i][j] == ' ' || (cube_map[i][j] < 14 && cube_map[i][j] > 8))
 						return (1);
 					j++;
 				}
@@ -121,7 +122,7 @@ int	no_space(char **cube_map)
 // {
 // 	int	i;
 // 	int	j;
-	
+
 // 	i = 0;
 // 	j = 0;
 // 	while (cube_map[i][j] && cube_map[i][0] == '\n')
@@ -152,7 +153,7 @@ int	check_inside(char **cube_map, t_cube *cube)
 	int	i;
 	int	j;
 
-	j = 0;	
+	j = 0;
 	i = cube->start;
 	while (cube_map[i][j] && cube_map[i][j] == '1')
 		j++;
@@ -166,30 +167,29 @@ int	check_inside(char **cube_map, t_cube *cube)
 	{
 		if (cube_map[i][j] != '1')
 			return (1);
-		while (cube_map[i][j] == '1' || cube_map[i][j] == '0')
+		while (cube_map[i][j] == '1' || cube_map[i][j] == '0' || cube_map[i][j] == 'N' || cube_map[i][j] == 'W' || cube_map[i][j] == 'E' || cube_map[i][j] == 'S')
 			j++;
 		// while (cube_map[i][j] && (cube_map[i][j] != ' ' && cube_map[i][j] != '\n'))
 		// 	j++;
-		if (cube_map[i][j - 1] != '1')//verifier que le dernier est bien un 1
+		if (cube_map[i][j - 1] != '1') //verifier que le dernier est bien un 1
 			return (1);
 		j = 0;
 		i++;
 	}
 	while (cube_map[i][j] && cube_map[i][j] == '1')
 		j++;
-	while (cube_map[i][j] && cube_map[i][j] == ' ')
+	while (cube_map[i][j] && (cube_map[i][j] == ' ' || (cube_map[i][j] < 14 && cube_map[i][j] > 8)))
 		j++;
 	if (cube_map[i][j] != '\n' && cube_map[i][j] != '\0')
 		return (1);
 	return (0);
 }
 
-
 void len_map_2(char **cube_map, t_cube *cube)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	while (cube_map[i][0] && cube_map[i][0] == '\n')
 		i++;
@@ -221,9 +221,9 @@ int parsing_map(int fd, char **cube_map, int len, t_cube *cube)
 
 int	len_map(int fd)
 {
-	char **cube_map;
-	int i;
-	
+	char	**cube_map;
+	int		i;
+
 	i = 0;
 	cube_map = malloc (sizeof(char *) * 1);
 	cube_map[0] = get_next_line(fd);
@@ -239,7 +239,7 @@ int	len_map(int fd)
 	free(cube_map);
 	printf("taille map : %d\n", i);
 	return (i);
-	}
+}
 
 int	map_init(int fd, char *argv, t_cube *cube)
 {
