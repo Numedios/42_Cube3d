@@ -1,64 +1,118 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: zakariyahamdouchi <zakariyahamdouchi@st    +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/10/24 18:57:01 by zakariyaham       #+#    #+#              #
-#    Updated: 2023/04/26 19:06:05 by zakariyaham      ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# Compilation flags
+ifeq ($(DMEM),1)
+MEM 		= -fsanitize=address
+endif
 
-NAME = cube3d
+ifeq ($(DTHREAD),1)
+MEM 		= -fsanitize=thread
+endif
 
-SRC_PATH = ./srcs/
-SRC = ft_main.c \
-	ft_parsing.c ft_utils.c ft_parsing_map.c
-SRCS = $(addprefix ${SRC_PATH}, ${SRC})
+#==============================================================================#
+#                                   TARGETS                                    #
+#==============================================================================#
 
-OBJ_PATH	= obj/
-OBJ = ${SRC:.c=.o}
-OBJS = $(addprefix $(OBJ_PATH), $(OBJ))
+NAME = minishell
 
-DEPS = $(addprefix ${OBJ_PATH}, ${SRC:.c=.d})
+#==============================================================================#
+#                                   COMMANDS                                   #
+#==============================================================================#
 
-INC = -I./includes/
+CC = cc
+CFLAGS = -g 
+MLXFLAGS := -L mlx_linux -lmlx -lXext -lX11 -lz -lm
+DFLAGS = -MMD
+MKDIR = mkdir -p
+RM = rm -f
+MAKE_SILENT = make --no-print-directory
 
-LIBS = -L./libs/libft -lft -L./libs/printf -lprintf -L./libs/gnl -lget_next_line # -L./libs/minilibx-linux -lmlx -lXext -lX11 -lm -lz
+#==============================================================================#
+#                                    COLORS                                    #
+#==============================================================================#
 
-FLAGS = -Wall -Wextra -Werror -MMD -MP -g
+PURPLE = \033[35m
+GREEN = \033[32m
+YELLOW = \033[33m
+END = \033[0m
 
-${NAME} : ${OBJS}
-	make -C ./libs/libft/
-	make -C ./libs/printf/
-	make -C ./libs/gnl/
-#	make -C ./libs/minilibx-linux/
-	clang ${FLAGS} $(OBJS) $(LIBS) -o ${NAME}
+#==============================================================================#
+#                                    PATHS                                     #
+#==============================================================================#
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.c
-	@mkdir -p ${OBJ_PATH}
-	clang ${FLAGS} ${INC} -o $@ -c $<
+SRC_DIR = src/
+HEADER_DIR = include/
+OBJ_DIR = obj/
 
-all : ${NAME}
+#==============================================================================#
+#                                   SOURCES                                    #
+#==============================================================================#
+
+SRC = main.c \
+		get_next_line.c \
+		get_next_line_utils.c \
+		parsing_arg.c \
+		supp.c \
+		free.c \
+		create_tab.c \
+		set_struct.c \
+		create_sprites_utils.c \
+		create_sprites.c \
+		create_map.c \
+		create_map_utils.c \
+		parsing_map_utils.c \
+		create_player.c \
+		libft.c \
+		2d.c \
+
+
+#==============================================================================#
+#                                   HEADERS                                    #
+#==============================================================================#
+
+HEAD_NAME = $(HEADER_DIR)/minishell.h
+INC = -I./$(HEADER_DIR)
+
+#==============================================================================#
+#                                   OBJECTS                                    #
+#==============================================================================#
+
+OBJ = $(addprefix ${OBJ_DIR}, ${SRC:.c=.o})
+
+#==============================================================================#
+#                                   LIBS                                       #
+#==============================================================================#
+
+MLX := mlx_linux/libmlx_Linux.a
+
+
+#==============================================================================#
+#                                   MAKEFILE                                   #
+#==============================================================================#
+
+all : $(NAME)
+
+$(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEAD_NAME)
+	mkdir -p ${@D}
+	$(CC) $(CFLAGS) $(DFLAGS) ${MLX} $(MEM) $(INC) -c $< -o $@
+
+$(NAME) : $(OBJ)
+	echo "$(YELLOW)Making cube3d$(END)"
+	$(CC) $(CFLAGS) $(OBJ) ${MLXFLAGS} -o $(NAME) -lreadline
+	echo "$(GREEN)Done$(END)"
+
+bonus : all
 
 clean :
-	make clean -C ./libs/libft/
-	make clean -C ./libs/printf/
-	make clean -C ./libs/gnl/
-#	make clean -C ./libs/minilibx-linux/
-	rm -rf ${OBJ_PATH}
+	echo "$(PURPLE)Cleaning cube3d objects...$(END)"
+	$(RM)r $(OBJ_DIR)
+	echo "$(GREEN)Done$(END)"
 
 fclean : clean
-	make fclean -C ./libs/libft/
-	make fclean -C ./libs/printf/
-	make clean -C ./libs/gnl/
-	rm -rf ${NAME}
+	echo "$(PURPLE)Cleaning cube3d...$(END)"
+	$(RM) $(NAME)
+	echo "$(GREEN)Done$(END)"
 
-re : fclean all
+re : fclean
+	$(MAKE_SILENT) all
 
--include ${DEPS}
-
-.SECONDARY : $(OBJS)
-
-.PHONY: all clean fclean re
+.PHONY : all clean fclean re bonus
+.SILENT :
