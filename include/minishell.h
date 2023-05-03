@@ -2,6 +2,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <math.h>//
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -18,8 +19,8 @@
 #ifndef MY_HEADER_H//
 #define MY_HEADER_H//
 
-#define w_width 1000//
-#define w_height 1000//
+#define w_width 1400//
+#define w_height 1400//
 #define cell_size 32//
 
 #endif /* MY_HEADER_H *///
@@ -49,6 +50,21 @@ typedef struct player
 	char dir;
 
 }			t_player;
+
+typedef struct jett//
+{
+	float	x;
+	float	y;
+	float	width;
+	float	height;
+	// float	radius;
+	int		turnDirection;
+	int		walkDirection;
+	float	rotationAngle;
+	float	moveSpeed;
+	float	rotationSpeed;
+
+}			t_jett;
 
 typedef struct s_game
 {
