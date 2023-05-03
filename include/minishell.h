@@ -55,6 +55,8 @@ typedef struct jett//
 {
 	float	x;
 	float	y;
+	float	old_x;
+	float	old_y;
 	float	width;
 	float	height;
 	// float	radius;
@@ -63,6 +65,11 @@ typedef struct jett//
 	float	rotationAngle;
 	float	moveSpeed;
 	float	rotationSpeed;
+	void    *mlx_ptr;
+	void    *win_ptr;
+	char **map;
+	int cols;//
+	int	rows;//
 
 }			t_jett;
 
@@ -163,6 +170,6 @@ int			ft_strlen(char *str);
 int			main(int argc, char **argv);
 
 /*	2d.c	*/
-void    debut(t_game *game);
+void    *debut(t_game *game);
 
 #endif
