@@ -27,7 +27,8 @@ void    setup(t_jett *jett, t_game *game)
 	jett->map = game->map;
 	jett->cols = game->cols;
 	jett->rows = game->rows; 
-	jett->rotationAngle = 2 * M_PI;//a comprend
+	// jett->angle = 90;
+	jett->rotationAngle = M_PI / 2;//a comprend, (M_PI / 2 = 90)
 	jett->rotationSpeed = 1 * (M_PI / 180);
 }
 
@@ -283,7 +284,7 @@ int check_wall(t_jett *jett, int x, int y)
 	return (0);
 }
 */
-int check_wall(t_jett *jett, int x, int y)
+int check_wall(t_jett *jett, float pos_x, float pos_y, double x, double y)
 {
 	int i;
 	int j;
@@ -300,11 +301,23 @@ int check_wall(t_jett *jett, int x, int y)
 	// }
 	// else
 	// {
-		i = (jett->x + x) / 32;
-		j = (jett->y + y) / 32;	
+	if (x > 0)
+		x = 1;
+	if (x < 0)
+		x = -1;
+	if (y > 0)
+		y = 1;
+	if (y < 0)
+		y = -1;
+	i = (pos_x + x) / 32;
+	j = (pos_y + y) / 32;	
 	// }
+	// printf("valeur i :%d\n", i);
+	// printf("valeur j :%d\n", j);
+	// printf("valeur x :%f\n", x);
+	// printf("valeur y :%f\n", y);
 	if (jett->map[i][j] && (jett->map[i][j] == '1' || jett->map[i][j] == ' '))
-		return (0);
+		return (printf("salut\n"), 0);
 	else if (x != 0)
 		return (x);
 	else if (y != 0)
@@ -312,22 +325,103 @@ int check_wall(t_jett *jett, int x, int y)
 	return (0);
 }
 
-void	first_ray(t_jett *jett)
+int check_wall_mov(t_jett *jett, double x, double y)
 {
 	int i;
 	int j;
-	// double angle;
+	
+	// if (x == 1 && y == 0)
+	// {
+	// 	i = (jett->x + x + 1) / 32;
+	// 	j = (jett->y + y + 1) / 32;	
+	// }
+	// else if (x == 0 && y == 1)
+	// {
+	// 	i = (jett->x + x + 1) / 32;
+	// 	j = (jett->y + y + 1) / 32;
+	// }
+	// else
+	// {
+	if (x > 0)
+		x = 1;
+	if (x < 0)
+		x = -1;
+	if (y > 0)
+		y = 1;
+	if (y < 0)
+		y = -1;
+	i = (jett->x + x) / 32;
+	j = (jett->y + y) / 32;	
+	// }
+	// printf("valeur i :%d\n", i);
+	// printf("valeur j :%d\n", j);
+	// printf("valeur x :%f\n", x);
+	// printf("valeur y :%f\n", y);
+	if (jett->map[i][j] && (jett->map[i][j] == '1' || jett->map[i][j] == ' '))
+		return (printf("salut\n"), 0);
+	else if (x != 0)
+		return (x);
+	else if (y != 0)
+		return (y);
+	return (0);
+}
+
+void	del_ray(t_jett *jett)
+{
+	int i;
+	int j;
+	double angle;
+	float x;
+	float y;
 
 	i = 0;
 	j = 0;
-	// angle = fmod(jett->rotationAngle, M_PI);
+	angle = jett->rotationAngle * (180 / M_PI);
+	x = jett->old_x;
+	y = jett->old_y;
+	//quand rotation-> angle sera egale a 0 et quon fait moins un on passe a 359 et inversement
 	while (i < 20)//la taille dependra de quand il heurte un mur 
 	{
-		// if (angle <= M_PI)
+		if (check_wall(jett, x, y, (sin(jett->rotationAngle) * -1), 0) != 0 && check_wall(jett, x, y, 0, (cos(jett->rotationAngle) * -1)) != 0)
+		{
+			mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y , x, 0xFFFFFF);
+			x = x + sin(jett->rotationAngle) * -1;
+			y = y + cos(jett->rotationAngle) * -1;
+		}
+		else
+			break ; 
+		i++; 
+	}
+}
+
+void	print_ray(t_jett *jett)
+{
+	int i;
+	int j;
+	double angle;
+	float x;
+	float y;
+
+	i = 0;
+	j = 0;
+	angle = jett->rotationAngle * (180 / M_PI);
+	//quand rotation-> angle sera egale a 0 et quon fait moins un on passe a 359 et inversement
+	x = jett->x;
+	y = jett->y;
+	while (i < 20)//la taille dependra de quand il heurte un mur 
+	{
+		// if (angle <= 180 && angle >= 0)
 		// {
-			printf("hello\n");
-			j = i * -1;
-			mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, jett->y + cos(jett->rotationAngle) * j ,jett->x + sin(jett->rotationAngle) * j, 0x0000FF);
+		// 	printf("hello\n");
+			// j = i * -1;
+			if (check_wall(jett, x, y, (sin(jett->rotationAngle) * -1), 0) != 0 && check_wall(jett, x , y, 0, (cos(jett->rotationAngle) * -1)) != 0)
+			{
+				mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y, x, 0x0000FF);
+				x = x + sin(jett->rotationAngle) * -1;
+				y = y + cos(jett->rotationAngle) * -1;
+			}
+			else
+				break ;
 		// }
 		// else
 		// {
@@ -335,7 +429,7 @@ void	first_ray(t_jett *jett)
 		// 	j = i * 1;
 		// 	mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, jett->y + cos(jett->rotationAngle) * i ,jett->x + sin(jett->rotationAngle) * j, 0x0000FF);
 		// }
-		//j = i; 
+		// j = i; 
 		i++; 
 	}
 }
@@ -350,33 +444,45 @@ int deal_key(int key, t_jett *jett)
 	}
 	if (key == 119) // W
 	{
+		del_ray(jett);
 		jett->walkDirection--;
-		jett->x = jett->x + cos(jett->rotationAngle) * jett->walkDirection;
-		jett->y = jett->y + sin(jett->rotationAngle) * jett->walkDirection;
+		if (check_wall_mov(jett, (sin(jett->rotationAngle) * -1), 0) != 0 && check_wall_mov(jett, 0, (cos(jett->rotationAngle) * -1)) != 0)
+		{
+			jett->x = jett->x + sin(jett->rotationAngle) * -1;
+			jett->y = jett->y + cos(jett->rotationAngle) * -1;
+		}
+		print_ray(jett);
 		jett->walkDirection = 0;
        // jett->x = jett->x + check_wall(jett, -1, 0);
 	}
 	if (key == 97) //A, doit deplacer la camera
 	{
+		del_ray(jett);
 		jett->turnDirection--;
 		jett->rotationAngle += jett->rotationSpeed * jett->turnDirection;
-		first_ray(jett);
+		print_ray(jett);
 		jett->turnDirection = 0;
         //jett->y = jett->y + check_wall(jett, 0, -1);
 	}
 	if (key == 115) // S
 	{
+		del_ray(jett);
 		jett->walkDirection++;
-		jett->y = jett->y + sin(jett->rotationAngle) * jett->walkDirection;
-		jett->x = jett->x + cos(jett->rotationAngle) * jett->walkDirection;
+		if (check_wall_mov(jett, (sin(jett->rotationAngle) * -1), 0) != 0 && check_wall_mov(jett, 0, (cos(jett->rotationAngle) * -1)) != 0)
+		{
+			jett->y = jett->y - cos(jett->rotationAngle) * -1;
+			jett->x = jett->x - sin(jett->rotationAngle) * -1;
+		}
+		print_ray(jett);
 		jett->walkDirection = 0;
 		//jett->x = jett-> x + check_wall(jett, 1, 0);
 	}
 	if (key == 100) // D, doit deplacer la camera
 	{
+		del_ray(jett);
 		jett->turnDirection++;
 		jett->rotationAngle += jett->rotationSpeed * jett->turnDirection;
-		first_ray(jett);
+		print_ray(jett);
 		jett->turnDirection = 0;
 		//jett->y = jett->y + check_wall(jett, 0, 1);
 	}
@@ -403,7 +509,7 @@ void    draw(t_game *game, t_jett *jett)
 	//floorandtop(mlx_ptr, win_ptr);
 	minimap(jett->mlx_ptr, jett->win_ptr, jett);
 	spawn_jett(jett->mlx_ptr, jett->win_ptr, jett, game);
-	first_ray(jett);
+	print_ray(jett);
 	mlx_key_hook(jett->win_ptr, deal_key, jett); // 2 est le code de l'événement de pression de touche
 	mlx_hook(jett->win_ptr,2, 1L<<0, deal_key, jett);
 	//mlx_loop_hook(jett->mlx_ptr,)
