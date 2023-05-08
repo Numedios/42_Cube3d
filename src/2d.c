@@ -468,7 +468,7 @@ int deal_key(int key, t_jett *jett)
 	{
 		del_ray(jett);
 		jett->walkDirection++;
-		if (check_wall_mov(jett, (sin(jett->rotationAngle) * -1), 0) != 0 && check_wall_mov(jett, 0, (cos(jett->rotationAngle) * -1)) != 0)
+		if (check_wall_mov(jett, (sin(jett->rotationAngle) * 1), 0) != 0 && check_wall_mov(jett, 0, (cos(jett->rotationAngle) * 1)) != 0)
 		{
 			jett->y = jett->y - cos(jett->rotationAngle) * -1;
 			jett->x = jett->x - sin(jett->rotationAngle) * -1;
