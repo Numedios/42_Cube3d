@@ -59,6 +59,10 @@ typedef struct jett//
 	float	old_y;
 	float	width;
 	float	height;
+	float	FOV_angle;
+	int	wall_width;
+	int	nb_rays;
+	float	ray_angle;
 	// float	radius;
 	int		turnDirection;
 	int		walkDirection;

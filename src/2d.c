@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:08:43 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/05/05 16:32:15 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/09 16:06:35 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,12 @@ void    setup(t_jett *jett, t_game *game)
 	jett->cols = game->cols;
 	jett->rows = game->rows; 
 	// jett->angle = 90;
+	jett->wall_width = 1;
+	jett->nb_rays = w_width / jett->wall_width;
+	jett->FOV_angle = 60 * (M_PI / 180); //60 correspond la taille de l'angle de vision
 	jett->rotationAngle = M_PI / 2;//a comprend, (M_PI / 2 = 90)
 	jett->rotationSpeed = 1 * (M_PI / 180);
+	jett->ray_angle = jett->rotationAngle -(jett->FOV_angle / 2);//debut de l'angle  de vision qu'il faudra augmenter de FOV_angle/nb_rays
 }
 
 void    update()
@@ -316,6 +320,8 @@ int check_wall(t_jett *jett, float pos_x, float pos_y, double x, double y)
 	// printf("valeur j :%d\n", j);
 	// printf("valeur x :%f\n", x);
 	// printf("valeur y :%f\n", y);
+	// printf("valeur pos_x :%f\n", pos_x);
+	// printf("valeur pos_y :%f\n", pos_y);
 	if (jett->map[i][j] && (jett->map[i][j] == '1' || jett->map[i][j] == ' '))
 		return (printf("salut\n"), 0);
 	else if (x != 0)
@@ -358,7 +364,7 @@ int check_wall_mov(t_jett *jett, double x, double y)
 	// printf("valeur x :%f\n", x);
 	// printf("valeur y :%f\n", y);
 	if (jett->map[i][j] && (jett->map[i][j] == '1' || jett->map[i][j] == ' '))
-		return (printf("salut\n"), 0);
+		return (0);
 	else if (x != 0)
 		return (x);
 	else if (y != 0)
@@ -373,24 +379,35 @@ void	del_ray(t_jett *jett)
 	double angle;
 	float x;
 	float y;
+	int count;
 
+	count = 0;
 	i = 0;
 	j = 0;
-	angle = jett->rotationAngle * (180 / M_PI);
+	//angle = jett->rotationAngle * (180 / M_PI);
+	angle = jett->rotationAngle - (20 * (M_PI / 180));
 	x = jett->old_x;
 	y = jett->old_y;
 	//quand rotation-> angle sera egale a 0 et quon fait moins un on passe a 359 et inversement
-	while (i < 20)//la taille dependra de quand il heurte un mur 
+	while (count < 40)
 	{
-		if (check_wall(jett, x, y, (sin(jett->rotationAngle) * -1), 0) != 0 && check_wall(jett, x, y, 0, (cos(jett->rotationAngle) * -1)) != 0)
+		while (i < 20)//la taille dependra de quand il heurte un mur 
 		{
-			mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y , x, 0xFFFFFF);
-			x = x + sin(jett->rotationAngle) * -1;
-			y = y + cos(jett->rotationAngle) * -1;
+			if (check_wall(jett, x, y, (sin(angle) * -1), 0) != 0 && check_wall(jett, x, y, 0, (cos(angle) * -1)) != 0)
+			{
+				mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y , x, 0xFFFFFF);
+				x = x + sin(angle) * -1;
+				y = y + cos(angle) * -1;
+			}
+			else
+				break ; 
+			i++; 
 		}
-		else
-			break ; 
-		i++; 
+		i = 0;
+		x = jett->old_x;
+		y = jett->old_y;
+		count++;
+		angle += (1 * (M_PI / 180));
 	}
 }
 
@@ -401,37 +418,49 @@ void	print_ray(t_jett *jett)
 	double angle;
 	float x;
 	float y;
-
+	int count;
+	
 	i = 0;
 	j = 0;
-	angle = jett->rotationAngle * (180 / M_PI);
+	count = 0;
+	angle = jett->rotationAngle - (20 * (M_PI / 180));
+	//angle = jett->rotationAngle * (180 / M_PI);
 	//quand rotation-> angle sera egale a 0 et quon fait moins un on passe a 359 et inversement
 	x = jett->x;
 	y = jett->y;
-	while (i < 20)//la taille dependra de quand il heurte un mur 
+	while (count < 40)
 	{
-		// if (angle <= 180 && angle >= 0)
-		// {
-		// 	printf("hello\n");
-			// j = i * -1;
-			if (check_wall(jett, x, y, (sin(jett->rotationAngle) * -1), 0) != 0 && check_wall(jett, x , y, 0, (cos(jett->rotationAngle) * -1)) != 0)
-			{
-				mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y, x, 0x0000FF);
-				x = x + sin(jett->rotationAngle) * -1;
-				y = y + cos(jett->rotationAngle) * -1;
-			}
-			else
-				break ;
-		// }
-		// else
-		// {
-		// 	printf("salut\n");
-		// 	j = i * 1;
-		// 	mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, jett->y + cos(jett->rotationAngle) * i ,jett->x + sin(jett->rotationAngle) * j, 0x0000FF);
-		// }
-		// j = i; 
-		i++; 
+		while (i < 20)//la taille dependra de quand il heurte un mur 
+		{
+			// if (angle <= 180 && angle >= 0)
+			// {
+			// 	printf("hello\n");
+				// j = i * -1;
+				if (check_wall(jett, x, y, (sin(angle) * -1), 0) != 0 && check_wall(jett, x , y, 0, (cos(angle) * -1)) != 0)
+				{
+					mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y, x, 0x0000FF);
+					x = x + sin(angle) * -1;
+					y = y + cos(angle) * -1;
+				}
+				else//ici il faudra enregistrer la distance du rayon
+					break ;
+			// }
+			// else
+			// {
+			// 	printf("salut\n");
+			// 	j = i * 1;
+			// 	mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, jett->y + cos(jett->rotationAngle) * i ,jett->x + sin(jett->rotationAngle) * j, 0x0000FF);
+			// }
+			// j = i; 
+			i++; 
+		}
+		i = 0;
+		x = jett->x;
+		y = jett->y;
+		count++;
+		angle += (1 * (M_PI / 180));
 	}
+		
 }
 
 int deal_key(int key, t_jett *jett)
