@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:08:43 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/05/09 16:06:35 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/09 18:35:38 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,10 @@ void    minimap(void *mlx_ptr, void *win_ptr, t_jett *jett)
 		j = 0;
 		i++;
 	}
+	// printf("valeur map :%c\n", jett->map[12][31/32]);
+	// printf("valeur map :%c\n", jett->map[12][32/32]);
+	// printf("valeur map :%c\n", jett->map[12][33/32]);
+	// printf("valeur map :%c\n", jett->map[12][34/32]);
 	// i = 0;
 	// j = 0;
 	// while (i < w_width)
@@ -288,7 +292,17 @@ int check_wall(t_jett *jett, int x, int y)
 	return (0);
 }
 */
-int check_wall(t_jett *jett, float pos_x, float pos_y, double x, double y)
+
+/*
+HIT WALL	
+delta y : long ystep (32);
+delta x : xstep (32);
+*/
+
+
+
+
+int check_wall(t_jett *jett, float pos_x, float pos_y, double x, double y)//probleme d'arrondie qui cree un ecart d'un pixel
 {
 	int i;
 	int j;
@@ -323,7 +337,7 @@ int check_wall(t_jett *jett, float pos_x, float pos_y, double x, double y)
 	// printf("valeur pos_x :%f\n", pos_x);
 	// printf("valeur pos_y :%f\n", pos_y);
 	if (jett->map[i][j] && (jett->map[i][j] == '1' || jett->map[i][j] == ' '))
-		return (printf("salut\n"), 0);
+		return (0);
 	else if (x != 0)
 		return (x);
 	else if (y != 0)
@@ -392,7 +406,11 @@ void	del_ray(t_jett *jett)
 	while (count < 40)
 	{
 		while (i < 20)//la taille dependra de quand il heurte un mur 
-		{
+		{	
+			/*
+			detecter si ou je suis est un 1 ou 0
+			avec l'angle qu'on connait calculer pour chaque intersection horizontale et verticale quand aura lieu l'intersection la plus proche
+			*/
 			if (check_wall(jett, x, y, (sin(angle) * -1), 0) != 0 && check_wall(jett, x, y, 0, (cos(angle) * -1)) != 0)
 			{
 				mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y , x, 0xFFFFFF);
