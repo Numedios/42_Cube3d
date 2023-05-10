@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:08:43 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/05/09 18:35:38 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:12:31 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void    setup(t_jett *jett, t_game *game)
 	jett->wall_width = 1;
 	jett->nb_rays = w_width / jett->wall_width;
 	jett->FOV_angle = 60 * (M_PI / 180); //60 correspond la taille de l'angle de vision
-	jett->rotationAngle = M_PI / 2;//a comprend, (M_PI / 2 = 90)
+	jett->rotationAngle = 450 * (M_PI / 180);//a comprend, (M_PI / 2 = 90)
 	jett->rotationSpeed = 1 * (M_PI / 180);
 	jett->ray_angle = jett->rotationAngle -(jett->FOV_angle / 2);//debut de l'angle  de vision qu'il faudra augmenter de FOV_angle/nb_rays
 }
