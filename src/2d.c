@@ -31,7 +31,7 @@ void    setup(t_jett *jett, t_game *game)
 	jett->wall_width = 1;
 	jett->nb_rays = w_width / jett->wall_width;
 	jett->FOV_angle = 60 * (M_PI / 180); //60 correspond la taille de l'angle de vision
-	jett->rotationAngle = 450 * (M_PI / 180);//a comprend, (M_PI / 2 = 90)
+	jett->rotationAngle = 60 * (M_PI / 180);//a comprend, (M_PI / 2 = 90)
 	jett->rotationSpeed = 1 * (M_PI / 180);
 	jett->ray_angle = jett->rotationAngle -(jett->FOV_angle / 2);//debut de l'angle  de vision qu'il faudra augmenter de FOV_angle/nb_rays
 }
@@ -411,11 +411,11 @@ void	del_ray(t_jett *jett)
 			detecter si ou je suis est un 1 ou 0
 			avec l'angle qu'on connait calculer pour chaque intersection horizontale et verticale quand aura lieu l'intersection la plus proche
 			*/
-			if (check_wall(jett, x, y, (sin(angle) * -1), 0) != 0 && check_wall(jett, x, y, 0, (cos(angle) * -1)) != 0)
+			if (check_wall(jett, x, y, (sin(angle) * -1), 0) != 0 && check_wall(jett, x, y, 0, (cos(angle) * 1)) != 0)
 			{
 				mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y , x, 0xFFFFFF);
 				x = x + sin(angle) * -1;
-				y = y + cos(angle) * -1;
+				y = y + cos(angle) * 1;
 			}
 			else
 				break ; 
@@ -454,11 +454,12 @@ void	print_ray(t_jett *jett)
 			// {
 			// 	printf("hello\n");
 				// j = i * -1;
-				if (check_wall(jett, x, y, (sin(angle) * -1), 0) != 0 && check_wall(jett, x , y, 0, (cos(angle) * -1)) != 0)
+				wall_hit_horizontal(jett);
+				if (check_wall(jett, x, y, (sin(angle) * -1), 0) != 0 && check_wall(jett, x , y, 0, (cos(angle) * 1)) != 0)
 				{
 					mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y, x, 0x0000FF);
 					x = x + sin(angle) * -1;
-					y = y + cos(angle) * -1;
+					y = y + cos(angle) * 1;
 				}
 				else//ici il faudra enregistrer la distance du rayon
 					break ;
@@ -496,7 +497,7 @@ int deal_key(int key, t_jett *jett)
 		if (check_wall_mov(jett, (sin(jett->rotationAngle) * -1), 0) != 0 && check_wall_mov(jett, 0, (cos(jett->rotationAngle) * -1)) != 0)
 		{
 			jett->x = jett->x + sin(jett->rotationAngle) * -1;
-			jett->y = jett->y + cos(jett->rotationAngle) * -1;
+			jett->y = jett->y + cos(jett->rotationAngle) * 1;
 		}
 		print_ray(jett);
 		jett->walkDirection = 0;
@@ -505,8 +506,11 @@ int deal_key(int key, t_jett *jett)
 	if (key == 97) //A, doit deplacer la camera
 	{
 		del_ray(jett);
-		jett->turnDirection--;
-		jett->rotationAngle += jett->rotationSpeed * jett->turnDirection;
+		jett->turnDirection++;
+		printf("valeur de angle : %f\n", tan(jett->rotationAngle));
+		angleplus(jett, 1);
+		printf("valeur de angle : %f\n", tan(jett->rotationAngle));
+		//jett->rotationAngle += jett->rottaionSpeed * jett->turnDirection; remplacer par angleplus, pour toujours avec l'angle compris entre 0 et 360
 		print_ray(jett);
 		jett->turnDirection = 0;
         //jett->y = jett->y + check_wall(jett, 0, -1);
@@ -517,7 +521,7 @@ int deal_key(int key, t_jett *jett)
 		jett->walkDirection++;
 		if (check_wall_mov(jett, (sin(jett->rotationAngle) * 1), 0) != 0 && check_wall_mov(jett, 0, (cos(jett->rotationAngle) * 1)) != 0)
 		{
-			jett->y = jett->y - cos(jett->rotationAngle) * -1;
+			jett->y = jett->y - cos(jett->rotationAngle) * 1;
 			jett->x = jett->x - sin(jett->rotationAngle) * -1;
 		}
 		print_ray(jett);
@@ -527,8 +531,11 @@ int deal_key(int key, t_jett *jett)
 	if (key == 100) // D, doit deplacer la camera
 	{
 		del_ray(jett);
-		jett->turnDirection++;
-		jett->rotationAngle += jett->rotationSpeed * jett->turnDirection;
+		jett->turnDirection--;
+		printf("valeur de angle : %f\n", tan(jett->rotationAngle));
+		angleplus(jett, -1);
+		printf("valeur de angle : %f\n", tan(jett->rotationAngle));
+		//jett->rotationAngle += jett->rotationSpeed * jett->turnDirection;
 		print_ray(jett);
 		jett->turnDirection = 0;
 		//jett->y = jett->y + check_wall(jett, 0, 1);

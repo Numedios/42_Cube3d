@@ -178,5 +178,7 @@ int			main(int argc, char **argv);
 
 /*	2d.c	*/
 void    *debut(t_game *game);
+void    angleplus(t_jett *jett, float anglemove);
+int wall_hit_horizontal(t_jett *jett);
 
 #endif
