@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 16:08:43 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/05/12 18:36:02 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/12 18:07:10 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void    setup(t_jett *jett, t_game *game)
 	jett->wall_width = 1;
 	jett->nb_rays = w_width / jett->wall_width;
 	jett->FOV_angle = 60 * (M_PI / 180); //60 correspond la taille de l'angle de vision
-	jett->rotationAngle = 0 * (M_PI / 180);//a comprend, (M_PI / 2 = 90)
+	jett->rotationAngle = 60 * (M_PI / 180);//a comprend, (M_PI / 2 = 90)
 	jett->rotationSpeed = 1 * (M_PI / 180);
 	jett->ray_angle = jett->rotationAngle -(jett->FOV_angle / 2);//debut de l'angle  de vision qu'il faudra augmenter de FOV_angle/nb_rays
 }
@@ -85,8 +85,8 @@ void    minimap(void *mlx_ptr, void *win_ptr, t_jett *jett)
 	{
 		while (j < w_height)
 		{
-			x = i / cell_size;
-			y = j / cell_size;
+			x = i / 64;
+			y = j / 64;
 			if (x < jett->rows)
 			{
 				if (jett->map[x][y] && (jett->map[x][y] == '1' || jett->map[x][y] == ' '))
@@ -101,22 +101,22 @@ void    minimap(void *mlx_ptr, void *win_ptr, t_jett *jett)
 		j = 0;
 		i++;
 	}
-	// printf("valeur map :%c\n", jett->map[12][31/cell_size]);
-	// printf("valeur map :%c\n", jett->map[12][cell_size/cell_size]);
-	// printf("valeur map :%c\n", jett->map[12][33/cell_size]);
-	// printf("valeur map :%c\n", jett->map[12][34/cell_size]);
+	// printf("valeur map :%c\n", jett->map[12][31/64]);
+	// printf("valeur map :%c\n", jett->map[12][64/64]);
+	// printf("valeur map :%c\n", jett->map[12][33/64]);
+	// printf("valeur map :%c\n", jett->map[12][34/64]);
 	// i = 0;
 	// j = 0;
 	// while (i < w_width)
 	// {
 	// 	while (j < w_height)
 	// 	{
-	// 		x = i / cell_size;
+	// 		x = i / 64;
 	// 		if (x < jett->rows)
 	// 		{
 	// 			mlx_pixel_put(mlx_ptr, win_ptr, j, i, 0x000000);
 	// 		}
-	// 		j = j + cell_size;
+	// 		j = j + 64;
 	// 	}
 	// 	j = 0;
 	// 	i++;
@@ -127,7 +127,7 @@ void    minimap(void *mlx_ptr, void *win_ptr, t_jett *jett)
 	// {
 	// 	while (j < w_height)
 	// 	{
-	// 		x = i / cell_size;
+	// 		x = i / 64;
 	// 		if (x < jett->rows)
 	// 		{
 	// 			mlx_pixel_put(mlx_ptr, win_ptr, j, i, 0x000000);
@@ -135,7 +135,7 @@ void    minimap(void *mlx_ptr, void *win_ptr, t_jett *jett)
 	// 		j++;
 	// 	}
 	// 	j = 0;
-	// 	i = i + cell_size;
+	// 	i = i + 64;
 	// }
 }
 
@@ -158,8 +158,8 @@ void spawn_jett(void *mlx_ptr, void *win_ptr, t_jett *jett, t_game *game)
 		{
 			if (game->map[i][j] == 'S')// mettre les autres directions
 			{
-				jett->x = i * cell_size;
-				jett->y = j * cell_size;
+				jett->x = i * 64;
+				jett->y = j * 64;
 				x = jett->x;
 				y = jett->y;
 				while (len_1 < jett->height)
@@ -250,18 +250,18 @@ int check_wall(t_jett *jett, int x, int y)
 	{
 		if (x_old == 4 && y_old == 0)
 		{
-			i = (jett->x + x + 4) / cell_size;
-			j = (jett->y + y + 4) / cell_size;	
+			i = (jett->x + x + 4) / 64;
+			j = (jett->y + y + 4) / 64;	
 		}
 		else if (x == 0 && y_old == 4)
 		{
-			i = (jett->x + x + 4) / cell_size;
-			j = (jett->y + y + 4) / cell_size;
+			i = (jett->x + x + 4) / 64;
+			j = (jett->y + y + 4) / 64;
 		}
 		else
 		{
-			i = (jett->x + x) / cell_size;
-			j = (jett->y + y) / cell_size;	
+			i = (jett->x + x) / 64;
+			j = (jett->y + y) / 64;	
 		}
 		if (jett->map[i][j] && (jett->map[i][j] == '1' || jett->map[i][j] == ' '))
 		{
@@ -295,8 +295,8 @@ int check_wall(t_jett *jett, int x, int y)
 
 /*
 HIT WALL	
-delta y : long ystep (cell_size);
-delta x : xstep (cell_size);
+delta y : long ystep (64);
+delta x : xstep (64);
 */
 
 
@@ -309,13 +309,13 @@ int check_wall(t_jett *jett, float pos_x, float pos_y, double x, double y)//prob
 	
 	// if (x == 1 && y == 0)
 	// {
-	// 	i = (jett->x + x + 1) / cell_size;
-	// 	j = (jett->y + y + 1) / cell_size;	
+	// 	i = (jett->x + x + 1) / 64;
+	// 	j = (jett->y + y + 1) / 64;	
 	// }
 	// else if (x == 0 && y == 1)
 	// {
-	// 	i = (jett->x + x + 1) / cell_size;
-	// 	j = (jett->y + y + 1) / cell_size;
+	// 	i = (jett->x + x + 1) / 64;
+	// 	j = (jett->y + y + 1) / 64;
 	// }
 	// else
 	// {
@@ -327,8 +327,8 @@ int check_wall(t_jett *jett, float pos_x, float pos_y, double x, double y)//prob
 		y = 1;
 	if (y < 0)
 		y = -1;
-	i = (pos_x + x) / cell_size;
-	j = (pos_y + y) / cell_size;	
+	i = (pos_x + x) / 64;
+	j = (pos_y + y) / 64;	
 	// }
 	// printf("valeur i :%d\n", i);
 	// printf("valeur j :%d\n", j);
@@ -352,13 +352,13 @@ int check_wall_mov(t_jett *jett, double x, double y)
 	
 	// if (x == 1 && y == 0)
 	// {
-	// 	i = (jett->x + x + 1) / cell_size;
-	// 	j = (jett->y + y + 1) / cell_size;	
+	// 	i = (jett->x + x + 1) / 64;
+	// 	j = (jett->y + y + 1) / 64;	
 	// }
 	// else if (x == 0 && y == 1)
 	// {
-	// 	i = (jett->x + x + 1) / cell_size;
-	// 	j = (jett->y + y + 1) / cell_size;
+	// 	i = (jett->x + x + 1) / 64;
+	// 	j = (jett->y + y + 1) / 64;
 	// }
 	// else
 	// {
@@ -370,8 +370,8 @@ int check_wall_mov(t_jett *jett, double x, double y)
 		y = 1;
 	if (y < 0)
 		y = -1;
-	i = (jett->x + x) / cell_size;
-	j = (jett->y + y) / cell_size;	
+	i = (jett->x + x) / 64;
+	j = (jett->y + y) / 64;	
 	// }
 	// printf("valeur i :%d\n", i);
 	// printf("valeur j :%d\n", j);
@@ -384,27 +384,6 @@ int check_wall_mov(t_jett *jett, double x, double y)
 	else if (y != 0)
 		return (y);
 	return (0);
-}
-void draw_line_3(int x1, int y1, int x2, int y2, t_jett *jett)
-{
-    int dx = abs(x2 - x1);
-    int dy = abs(y2 - y1);
-    int sx = x1 < x2 ? 1 : -1;
-    int sy = y1 < y2 ? 1 : -1;
-    int err = dx - dy;
-    
-    while (x1 != x2 || y1 != y2) {
-        mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y1, x1,  0xFFFFFFFF);
-        int e2 = 2 * err;
-        if (e2 > -dy) {
-            err -= dy;
-            x1 += sx;
-        }
-        if (e2 < dx) {
-            err += dx;
-            y1 += sy;
-        }
-    }
 }
 
 void	del_ray(t_jett *jett)
@@ -424,7 +403,7 @@ void	del_ray(t_jett *jett)
 	x = jett->old_x;
 	y = jett->old_y;
 	//quand rotation-> angle sera egale a 0 et quon fait moins un on passe a 359 et inversement
-	while (count < 80)
+	while (count < 40)
 	{
 		while (1)//la taille dependra de quand il heurte un mur 
 		{	
@@ -434,7 +413,7 @@ void	del_ray(t_jett *jett)
 			*/
 			if (check_wall(jett, x, y, (sin(angle) * -1), 0) != 0 && check_wall(jett, x, y, 0, (cos(angle) * 1)) != 0)
 			{
-				//mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y , x, 0xFFFFFF);
+				mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y , x, 0xFFFFFF);
 				x = x + sin(angle) * -1;
 				y = y + cos(angle) * 1;
 			}
@@ -442,35 +421,12 @@ void	del_ray(t_jett *jett)
 				break ; 
 			i++; 
 		}
-		draw_line_3(jett->x, jett->y, x, y, jett);
 		i = 0;
 		x = jett->old_x;
 		y = jett->old_y;
 		count++;
-		angle += (0.5 * (M_PI / 180));
+		angle += (1 * (M_PI / 180));
 	}
-}
-
-void draw_line_2(int x1, int y1, int x2, int y2, t_jett *jett)
-{
-    int dx = abs(x2 - x1);
-    int dy = abs(y2 - y1);
-    int sx = x1 < x2 ? 1 : -1;
-    int sy = y1 < y2 ? 1 : -1;
-    int err = dx - dy;
-    
-    while (x1 != x2 || y1 != y2) {
-        mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y1, x1,  0x000000FF);
-        int e2 = 2 * err;
-        if (e2 > -dy) {
-            err -= dy;
-            x1 += sx;
-        }
-        if (e2 < dx) {
-            err += dx;
-            y1 += sy;
-        }
-    }
 }
 
 void	print_ray(t_jett *jett)
@@ -490,7 +446,7 @@ void	print_ray(t_jett *jett)
 	//quand rotation-> angle sera egale a 0 et quon fait moins un on passe a 359 et inversement
 	x = jett->x;
 	y = jett->y;
-	while (count < 80)
+	while (count < 40)
 	{
 		while (1)//la taille dependra de quand il heurte un mur 
 		{
@@ -500,7 +456,7 @@ void	print_ray(t_jett *jett)
 				// j = i * -1;
 				if (check_wall(jett, x, y, (sin(angle) * -1), 0) != 0 && check_wall(jett, x , y, 0, (cos(angle) * 1)) != 0)
 				{
-					//mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y, x, 0x0000FF);
+					mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y, x, 0x0000FF);
 					x = x + sin(angle) * -1;
 					y = y + cos(angle) * 1;
 				}
@@ -516,13 +472,12 @@ void	print_ray(t_jett *jett)
 			// j = i; 
 			i++; 
 		}
-		draw_line_2(jett->x, jett->y, x, y, jett);
 		// wall_hit_horizontal(jett, angle);
 		i = 0;
 		x = jett->x;
 		y = jett->y;
 		count++;
-		angle += (0.5 * (M_PI / 180));
+		angle += (1 * (M_PI / 180));
 	}
 		
 }

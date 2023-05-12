@@ -20,7 +20,7 @@ void check_char_map(t_game *game)
 			}
 			if (game->map[i][j] && check_sep(game->map[i][j],"NSWE")) // si definir position joueur autant le faire ici
 			{
-				instance_player(game, i, j);
+				instance_player(game, j, i);
 				player++;
 			}
 			j++;

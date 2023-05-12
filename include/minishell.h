@@ -2,7 +2,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <math.h>//
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -14,18 +13,19 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
+# include <math.h>
 # include "../mlx_linux/mlx.h"
 
 #ifndef MY_HEADER_H//
 #define MY_HEADER_H//
 
-#define w_width 2400//
-#define w_height 1800//
-#define cell_size 32//
+#define w_width 500//
+#define w_height 500//
+#define cell_size 8//
 
 #endif /* MY_HEADER_H *///
 
-typedef struct map_p
+typedef struct map_p //sert uniquement au parsing
 {
 	int	start;
 	int	height;
@@ -33,7 +33,7 @@ typedef struct map_p
 
 }			t_map_p;
 
-typedef struct sprite
+typedef struct sprite //sert uniquement au parsing
 {
 	char    *north;
 	char    *sud;
@@ -43,13 +43,46 @@ typedef struct sprite
 	char		*top;
 }			t_sprite;
 
+typedef struct	model
+{
+	void    *north;
+	void    *sud;
+	void 	*east;
+	void	*west;
+	int		bot[3];
+	int		top[3];
+}			t_model;
+
 typedef struct player
 {
-	int	x;
-	int	y;
-	char dir;
+	int		x;
+	int		y;
+	double	posx;
+	double	posy;
+	double	dirx;
+	double	diry;
+	double	planex;
+	double	planey;
+	double	camerax;
+	int		hitbox;
+	int		speed;
+	char	dir;
 
 }			t_player;
+
+typedef struct s_game
+{
+	char 		**tab;
+	char 		**map;
+	void		*mlx;
+	void		*win;
+	int cols;//
+	int	rows;//
+	t_sprite	sprite;
+	t_model		model;
+	t_player	player;
+	t_map_p		map_p;
+}		t_game;
 
 typedef struct jett//
 {
@@ -80,18 +113,10 @@ typedef struct jett//
 
 }			t_jett;
 
-typedef struct s_game
-{
-	char **tab;
-	char **map;
-	int cols;//
-	int	rows;//
-	t_sprite	sprite;
-	t_player	player;
-}		t_game;
-
-
-
+/*	2d.c	*/
+void    *debut(t_game *game);
+void    angleplus(t_jett *jett, float anglemove);
+int wall_hit_horizontal(t_jett *jett, float angle);
 
 /* get_next_line.c */
 
@@ -128,6 +153,8 @@ char		**create_tab(char *file);
 /* set_struc.c */
 
 void		set_sprite(t_sprite *sprite);
+void		set_model(t_game *game);
+void		set_game(t_game *game);
 
 /* create_sprites.c */
 
@@ -147,7 +174,7 @@ int			check_dir(char *line, char *dir);
 
 /* create_map.c */
 
-void	create_map(t_game *game, t_map_p map_p);
+void		create_map(t_game *game, t_map_p map_p);
 
 /* create_map-utils.c */
 
@@ -157,6 +184,13 @@ int			start_height_map(t_game *game, t_map_p	map_p);
 void		check_map_block(t_game *game, t_map_p	map_p);
 int			start_width_map(t_game *game, t_map_p map_p);
 
+
+/* parsing_map.c */
+
+void		check_map(t_game *game);
+void		parsing_map(t_game *game);
+void		bad_char(t_game *game);
+
 /* parsing_map_utils.c*/
 
 void		check_char_map(t_game *game);
@@ -164,21 +198,35 @@ void		check_wall_line(t_game *game);
 void		check_adjacent(int row, int col, t_game *game);
 void		check_wall_map(t_game *game);
 
+/* parsing.c */
+
+void parsing(char *file, t_game *game);
+
 /* create_player */
 
-void instance_player(t_game *game, int x, int y);
-void check_player_start(t_game *game, t_player p);
+void 		instance_player(t_game *game, int x, int y);
+void 		check_player_start(t_game *game, t_player p);
+
+/* split.c */
+
+char	**ft_split(char const *s, char c);
 
 /* libft.c */
 
 int			check_sep(char c, char *sep);
 int			ft_strlen(char *str);
+int			ft_strlen_tab(char **tab);
+int			ft_atoi(const char *nptr);
+
+/* set_mlx.c */
+
+void		*create_sprite(char *str, t_game *game); // rajouter game et tout free
+void		add_model(t_game *game);
+void		init_mlx(t_game *game);
+
+
 
 int			main(int argc, char **argv);
-
-/*	2d.c	*/
-void    *debut(t_game *game);
-void    angleplus(t_jett *jett, float anglemove);
-int wall_hit_horizontal(t_jett *jett);
+void set_dir_start(t_game *game);
 
 #endif

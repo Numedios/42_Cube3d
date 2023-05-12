@@ -50,6 +50,7 @@ SRC = main.c \
 		get_next_line.c \
 		get_next_line_utils.c \
 		parsing_arg.c \
+		parsing.c \
 		supp.c \
 		free.c \
 		create_tab.c \
@@ -58,11 +59,14 @@ SRC = main.c \
 		create_sprites.c \
 		create_map.c \
 		create_map_utils.c \
+		parsing_map.c \
 		parsing_map_utils.c \
 		create_player.c \
+		split.c \
+		set_mlx.c \
 		libft.c \
 		2d.c \
-		2_intersection.c \
+		2_intersection.c
 
 
 #==============================================================================#

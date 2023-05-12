@@ -17,9 +17,10 @@ void check_player_start(t_game *game, t_player p)
 	free_game_exit(game, 1);
 }       
 
-void instance_player(t_game *game, int x, int y)
+void instance_player(t_game *game, int i, int j)
 {
-	game->player.x = x;
-	game->player.y = y;
-	game->player.dir = game->map[x][y];
+	game->player.x = i;
+	game->player.y = j;
+	game->player.dir = game->map[j][i];
+	set_dir_start(game);
 }
