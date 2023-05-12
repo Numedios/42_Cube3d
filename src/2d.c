@@ -85,8 +85,8 @@ void    minimap(void *mlx_ptr, void *win_ptr, t_jett *jett)
 	{
 		while (j < w_height)
 		{
-			x = i / 32;
-			y = j / 32;
+			x = i / 64;
+			y = j / 64;
 			if (x < jett->rows)
 			{
 				if (jett->map[x][y] && (jett->map[x][y] == '1' || jett->map[x][y] == ' '))
@@ -101,22 +101,22 @@ void    minimap(void *mlx_ptr, void *win_ptr, t_jett *jett)
 		j = 0;
 		i++;
 	}
-	// printf("valeur map :%c\n", jett->map[12][31/32]);
-	// printf("valeur map :%c\n", jett->map[12][32/32]);
-	// printf("valeur map :%c\n", jett->map[12][33/32]);
-	// printf("valeur map :%c\n", jett->map[12][34/32]);
+	// printf("valeur map :%c\n", jett->map[12][31/64]);
+	// printf("valeur map :%c\n", jett->map[12][64/64]);
+	// printf("valeur map :%c\n", jett->map[12][33/64]);
+	// printf("valeur map :%c\n", jett->map[12][34/64]);
 	// i = 0;
 	// j = 0;
 	// while (i < w_width)
 	// {
 	// 	while (j < w_height)
 	// 	{
-	// 		x = i / 32;
+	// 		x = i / 64;
 	// 		if (x < jett->rows)
 	// 		{
 	// 			mlx_pixel_put(mlx_ptr, win_ptr, j, i, 0x000000);
 	// 		}
-	// 		j = j + 32;
+	// 		j = j + 64;
 	// 	}
 	// 	j = 0;
 	// 	i++;
@@ -127,7 +127,7 @@ void    minimap(void *mlx_ptr, void *win_ptr, t_jett *jett)
 	// {
 	// 	while (j < w_height)
 	// 	{
-	// 		x = i / 32;
+	// 		x = i / 64;
 	// 		if (x < jett->rows)
 	// 		{
 	// 			mlx_pixel_put(mlx_ptr, win_ptr, j, i, 0x000000);
@@ -135,7 +135,7 @@ void    minimap(void *mlx_ptr, void *win_ptr, t_jett *jett)
 	// 		j++;
 	// 	}
 	// 	j = 0;
-	// 	i = i + 32;
+	// 	i = i + 64;
 	// }
 }
 
@@ -158,8 +158,8 @@ void spawn_jett(void *mlx_ptr, void *win_ptr, t_jett *jett, t_game *game)
 		{
 			if (game->map[i][j] == 'S')// mettre les autres directions
 			{
-				jett->x = i * 32;
-				jett->y = j * 32;
+				jett->x = i * 64;
+				jett->y = j * 64;
 				x = jett->x;
 				y = jett->y;
 				while (len_1 < jett->height)
@@ -250,18 +250,18 @@ int check_wall(t_jett *jett, int x, int y)
 	{
 		if (x_old == 4 && y_old == 0)
 		{
-			i = (jett->x + x + 4) / 32;
-			j = (jett->y + y + 4) / 32;	
+			i = (jett->x + x + 4) / 64;
+			j = (jett->y + y + 4) / 64;	
 		}
 		else if (x == 0 && y_old == 4)
 		{
-			i = (jett->x + x + 4) / 32;
-			j = (jett->y + y + 4) / 32;
+			i = (jett->x + x + 4) / 64;
+			j = (jett->y + y + 4) / 64;
 		}
 		else
 		{
-			i = (jett->x + x) / 32;
-			j = (jett->y + y) / 32;	
+			i = (jett->x + x) / 64;
+			j = (jett->y + y) / 64;	
 		}
 		if (jett->map[i][j] && (jett->map[i][j] == '1' || jett->map[i][j] == ' '))
 		{
@@ -295,8 +295,8 @@ int check_wall(t_jett *jett, int x, int y)
 
 /*
 HIT WALL	
-delta y : long ystep (32);
-delta x : xstep (32);
+delta y : long ystep (64);
+delta x : xstep (64);
 */
 
 
@@ -309,13 +309,13 @@ int check_wall(t_jett *jett, float pos_x, float pos_y, double x, double y)//prob
 	
 	// if (x == 1 && y == 0)
 	// {
-	// 	i = (jett->x + x + 1) / 32;
-	// 	j = (jett->y + y + 1) / 32;	
+	// 	i = (jett->x + x + 1) / 64;
+	// 	j = (jett->y + y + 1) / 64;	
 	// }
 	// else if (x == 0 && y == 1)
 	// {
-	// 	i = (jett->x + x + 1) / 32;
-	// 	j = (jett->y + y + 1) / 32;
+	// 	i = (jett->x + x + 1) / 64;
+	// 	j = (jett->y + y + 1) / 64;
 	// }
 	// else
 	// {
@@ -327,8 +327,8 @@ int check_wall(t_jett *jett, float pos_x, float pos_y, double x, double y)//prob
 		y = 1;
 	if (y < 0)
 		y = -1;
-	i = (pos_x + x) / 32;
-	j = (pos_y + y) / 32;	
+	i = (pos_x + x) / 64;
+	j = (pos_y + y) / 64;	
 	// }
 	// printf("valeur i :%d\n", i);
 	// printf("valeur j :%d\n", j);
@@ -352,13 +352,13 @@ int check_wall_mov(t_jett *jett, double x, double y)
 	
 	// if (x == 1 && y == 0)
 	// {
-	// 	i = (jett->x + x + 1) / 32;
-	// 	j = (jett->y + y + 1) / 32;	
+	// 	i = (jett->x + x + 1) / 64;
+	// 	j = (jett->y + y + 1) / 64;	
 	// }
 	// else if (x == 0 && y == 1)
 	// {
-	// 	i = (jett->x + x + 1) / 32;
-	// 	j = (jett->y + y + 1) / 32;
+	// 	i = (jett->x + x + 1) / 64;
+	// 	j = (jett->y + y + 1) / 64;
 	// }
 	// else
 	// {
@@ -370,8 +370,8 @@ int check_wall_mov(t_jett *jett, double x, double y)
 		y = 1;
 	if (y < 0)
 		y = -1;
-	i = (jett->x + x) / 32;
-	j = (jett->y + y) / 32;	
+	i = (jett->x + x) / 64;
+	j = (jett->y + y) / 64;	
 	// }
 	// printf("valeur i :%d\n", i);
 	// printf("valeur j :%d\n", j);
@@ -454,7 +454,6 @@ void	print_ray(t_jett *jett)
 			// {
 			// 	printf("hello\n");
 				// j = i * -1;
-				wall_hit_horizontal(jett);
 				if (check_wall(jett, x, y, (sin(angle) * -1), 0) != 0 && check_wall(jett, x , y, 0, (cos(angle) * 1)) != 0)
 				{
 					mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y, x, 0x0000FF);
@@ -564,6 +563,7 @@ void    draw(t_game *game, t_jett *jett)
 	minimap(jett->mlx_ptr, jett->win_ptr, jett);
 	spawn_jett(jett->mlx_ptr, jett->win_ptr, jett, game);
 	print_ray(jett);
+	wall_hit_horizontal(jett);
 	mlx_key_hook(jett->win_ptr, deal_key, jett); // 2 est le code de l'événement de pression de touche
 	mlx_hook(jett->win_ptr,2, 1L<<0, deal_key, jett);
 	//mlx_loop_hook(jett->mlx_ptr,)

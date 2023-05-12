@@ -64,16 +64,16 @@
 		
 // }
 
-void draw_line(int x1, int y1, int x2, int y2, t_jett *game)
+void draw_line(int x1, int y1, int x2, int y2, t_jett *jett)
 {
     int dx = abs(x2 - x1);
     int dy = abs(y2 - y1);
     int sx = x1 < x2 ? 1 : -1;
     int sy = y1 < y2 ? 1 : -1;
     int err = dx - dy;
-
+    
     while (x1 != x2 || y1 != y2) {
-        mlx_pixel_put(game->mlx_ptr, game->win_ptr, y1, x1,  0x000000FF);
+        mlx_pixel_put(jett->mlx_ptr, jett->win_ptr, y1, x1,  0x000000FF);
         int e2 = 2 * err;
         if (e2 > -dy) {
             err -= dy;
@@ -125,13 +125,13 @@ int wall_hit_horizontal(t_jett *jett)//il faut deplacer x pour ca
 
     if (sin(jett->rotationAngle) >= 0 && sin(jett->rotationAngle <= 1))
     {
-        first_y = (y / 32) * 32; 
-        delta_y = -32;
+        first_y = (y / 64) * 64; 
+        delta_y = -64;
     }
     else
     {
-        first_y = ((y / 32) * 32) + 32;
-        delta_y = 32;
+        first_y = ((y / 64) * 64) + 64;
+        delta_y = 64;
     }
     first_x = x +((first_y - y) / tan(jett->rotationAngle));
     if (cos(jett->rotationAngle) >= 0 && cos(jett->rotationAngle <= 1))
@@ -141,16 +141,16 @@ int wall_hit_horizontal(t_jett *jett)//il faut deplacer x pour ca
         delta_x = (delta_y / tan(jett->rotationAngle)) * -1;
         //first_x = x - ((y - first_y) / tan(jett->rotationAngle));
     /*
-    first_y = (y / 32) * 32; //le fait que first_y soit un int, permettre de faire un arrondi vers le bas mais je doiten fair un vers le haut 
+    first_y = (y / 64) * 64; //le fait que first_y soit un int, permettre de faire un arrondi vers le bas mais je doiten fair un vers le haut 
     first_x = x + ((y - first_y)/ tan(jett->rotationAngle));//vers la gauche on diminue de delta x et si on va vers la droite on ugmente de delta x
     
-    delta_y = 32;// vers le haut on diminue de 32, vers le bas on augmente de 32
+    delta_y = 64;// vers le haut on diminue de 64, vers le bas on augmente de 64
     delta_x = delta_y / tan(jett->rotationAngle);
     */
     while (1)
     {
-        i = first_x / 32;
-        j = first_y / 32;
+        i = first_x / 64;
+        j = first_y / 64;
         if (jett->map[i][j] != '1' && jett->map[i][j] != ' ')
         {
             first_x = first_x + delta_x;
@@ -183,13 +183,13 @@ int wall_hit_vertical(t_jett *jett)//il faut deplacer x pour ca
 
     if (cos(jett->rotationAngle) >= 0 && cos(jett->rotationAngle <= 1))
     {
-        first_x = ((y / 32) * 32) + 32;
-        delta_x = 32;
+        first_x = ((y / 64) * 64) + 64;
+        delta_x = 64;
     }
     else
     {
-        first_x = (y / 32) * 32; 
-        delta_x = -32;
+        first_x = (y / 64) * 64; 
+        delta_x = -64;
     }
     first_y = y +((first_x - x) * tan(jett->rotationAngle));
     if (sin(jett->rotationAngle) >= 0 && sin(jett->rotationAngle <= 1))
@@ -199,16 +199,16 @@ int wall_hit_vertical(t_jett *jett)//il faut deplacer x pour ca
         delta_y = delta_x * tan(jett->rotationAngle);
         //first_x = x - ((y - first_y) / tan(jett->rotationAngle));
     /*
-    first_y = (y / 32) * 32; //le fait que first_y soit un int, permettre de faire un arrondi vers le bas mais je doiten fair un vers le haut 
+    first_y = (y / 64) * 64; //le fait que first_y soit un int, permettre de faire un arrondi vers le bas mais je doiten fair un vers le haut 
     first_x = x + ((y - first_y)/ tan(jett->rotationAngle));//vers la gauche on diminue de delta x et si on va vers la droite on ugmente de delta x
     
-    delta_y = 32;// vers le haut on diminue de 32, vers le bas on augmente de 32
+    delta_y = 64;// vers le haut on diminue de 64, vers le bas on augmente de 64
     delta_x = delta_y / tan(jett->rotationAngle);
     */
     while (1)
     {
-        i = first_x / 32;
-        j = first_y / 32;
+        i = first_x / 64;
+        j = first_y / 64;
         if (jett->map[i][j] != '1' && jett->map[i][j] != ' ')
         {
             first_x = first_x + delta_x;

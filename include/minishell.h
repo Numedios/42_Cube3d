@@ -19,8 +19,8 @@
 #ifndef MY_HEADER_H//
 #define MY_HEADER_H//
 
-#define w_width 1400//
-#define w_height 1400//
+#define w_width 2400//
+#define w_height 1800//
 #define cell_size 32//
 
 #endif /* MY_HEADER_H *///
