@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing_arg.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbelabba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/24 18:46:20 by sbelabba          #+#    #+#             */
+/*   Updated: 2023/05/24 18:46:21 by sbelabba         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 /* 
@@ -5,9 +17,9 @@
 	utile pour.cub
 */
 
-void ft_strstrend(char *str, char *search)
+void	ft_strstrend(char *str, char *search)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str && !search)
@@ -28,9 +40,9 @@ void ft_strstrend(char *str, char *search)
 /*
 	voit si le fichier file s'ouvre avec l'option de lecture
 */
-void  ft_try_open(char *file)
+void	ft_try_open(char *file)
 {
-	int fd;
+	int	fd;
 
 	fd = open(file, 00400);
 	if (fd == -1)
@@ -44,13 +56,13 @@ void  ft_try_open(char *file)
 /*
 	verifie que l'argument du main existe et est valide
 */
-void parsing_arg(int argc, char **argv)
+void	parsing_arg(int argc, char **argv)
 {
-	if (argc != 1 )
+	if (argc != 1)
 	{
 		printf("ERROR : argc = %d\n", argc);
 		exit (0);
 	}
-	ft_strstrend(argv[0],".cub");
+	ft_strstrend(argv[0], ".cub");
 	ft_try_open(argv[0]);
 }

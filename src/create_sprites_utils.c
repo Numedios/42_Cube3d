@@ -1,18 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_sprites_utils.c                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/24 18:58:22 by sbelabba          #+#    #+#             */
+/*   Updated: 2023/05/25 14:05:15 by zhamdouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int	check_sprite(char *str, void *mlx) // rajouter game et tout free
+/*
+ rajouter game et tout free
+*/
+
+int	check_sprite(char *str, void *mlx)
 {
 	void	*img;
 	int		img_width;
 	int		img_height;
 
-	img = mlx_xpm_file_to_image(mlx, str,
-			&img_width, &img_height);
+	img = NULL;
+	if (str)
+		img = mlx_xpm_file_to_image(mlx, str,
+				&img_width, &img_height);
 	if (!img)
 	{
 		return (0);
 	}
-	mlx_destroy_image(mlx, img);
+	if (img)
+		mlx_destroy_image(mlx, img);
 	return (1);
 }
 
@@ -34,6 +53,7 @@ int	check_all_sprite(t_game *game)
 		printf("error un sprite n'existe pas\n");
 		mlx_destroy_display(mlx);
 		free(mlx);
+		free_game_exit(game, 1);
 		return (0);
 	}
 	mlx_destroy_display(mlx);
@@ -43,23 +63,26 @@ int	check_all_sprite(t_game *game)
 
 int	size_path(char *line)
 {
-	int i;
+	int	i;
 
-	i = 0;	
-	while(line && line[i] && line[i] != ' ' && line[i] != '\n' && line[i] != '\r')
+	i = 0;
+	while (line && line[i] && line[i] != ' '
+		&& line[i] != '\n' && line[i] != '\r')
 		i++;
-	return(i);
+	return (i);
 }
 
 int	ft_compstr(char *line, char *cmp)
 {
-	int i;
+	int	i;
 
 	i = 0;
+	if (line && line[0] == '\0')
+		return (1);
 	while (cmp && cmp[i])
 	{
 		if (line && line[i] && line[i] != cmp[i])
-			return(0);
+			return (0);
 		i++;
 	}
 	return (1);
@@ -67,16 +90,17 @@ int	ft_compstr(char *line, char *cmp)
 
 int	check_dir(char *line, char *dir)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (line && line[i])
 	{
 		while (line && line[i] && line[i] == ' ')
 			i++;
-		if (line && line[i] && line[i] != '\r' && line[i] != '\n'&& ft_compstr(line + i, dir))
+		if (line && line[i] && line[i] != '\r'
+			&& line[i] != '\n' && ft_compstr(line + i, dir))
 			return (1);
-		break;	
+		break ;
 	}
 	return (0);
 }

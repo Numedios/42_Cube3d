@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/26 15:49:17 by zhamdouc          #+#    #+#             */
+/*   Updated: 2023/05/26 15:49:17 by zhamdouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -16,39 +27,35 @@
 # include <math.h>
 # include "../mlx_linux/mlx.h"
 
-#ifndef MY_HEADER_H//
-#define MY_HEADER_H//
-
-#define w_width 500//
-#define w_height 500//
-#define cell_size 8//
-
-#endif /* MY_HEADER_H *///
-
 typedef struct map_p //sert uniquement au parsing
 {
 	int	start;
 	int	height;
-	int max_widht;
-
+	int	max_widht;
 }			t_map_p;
 
 typedef struct sprite //sert uniquement au parsing
 {
-	char    *north;
-	char    *sud;
-	char 	*east;
+	char	*north;
+	char	*sud;
+	char	*east;
 	char	*west;
-	char		*bot;
-	char		*top;
+	char	*bot;
+	char	*top;
 }			t_sprite;
 
-typedef struct	model
+typedef struct s_pic
 {
-	void    *north;
-	void    *sud;
-	void 	*east;
-	void	*west;
+	int		width;
+	int		height;
+	void	*mlx;
+	void	*win;
+	void	*img;
+	int		*buf;
+}	t_pic;
+
+typedef struct model
+{
 	int		bot[3];
 	int		top[3];
 }			t_model;
@@ -57,8 +64,6 @@ typedef struct player
 {
 	int		x;
 	int		y;
-	double	posx;
-	double	posy;
 	double	dirx;
 	double	diry;
 	double	planex;
@@ -70,57 +75,58 @@ typedef struct player
 
 }			t_player;
 
+typedef struct s_window
+{
+	int		height;
+	int		length;
+}		t_window;
+
 typedef struct s_game
 {
-	char 		**tab;
-	char 		**map;
+	char		**tab;
+	char		**map;
 	void		*mlx;
 	void		*win;
-	int cols;//
-	int	rows;//
+	int			key;
+	double		x;
+	double		y;
+	int			*buf;
+	double		wall;
+	double		camera_x;
+	int			side;
+	int			mapx;
+	int			mapy;
+	int			hit;
+	int			stepx;
+	int			stepy;
+	double		deltadisty;
+	double		deltadistx;
+	double		raydirx;
+	double		raydiry;
+	double		camerax;
+	double		perpwalldist;
+	double		sidex;
+	double		sidey;
+	t_pic		*north;
+	t_pic		*east;
+	t_pic		*west;
+	t_pic		*south;
+	t_pic		*pic;
+	t_window	screen;
 	t_sprite	sprite;
 	t_model		model;
 	t_player	player;
 	t_map_p		map_p;
 }		t_game;
 
-typedef struct jett//
-{
-	float	x;
-	float	y;
-	float	old_x;
-	float	old_y;
-	float	width;
-	float	height;
-	float	FOV_angle;
-	int	wall_width;
-	int	nb_rays;
-	float	ray_angle;
-	// float	radius;
-	int wall_hit_x;
-	int wall_hit_y;
-	int wall_distance;
-	int		turnDirection;
-	int		walkDirection;
-	float	rotationAngle;
-	float	moveSpeed;
-	float	rotationSpeed;
-	void    *mlx_ptr;
-	void    *win_ptr;
-	char **map;
-	int cols;//
-	int	rows;//
-
-}			t_jett;
-
-/*	2d.c	*/
-void    *debut(t_game *game);
-void    angleplus(t_jett *jett, float anglemove);
-int wall_hit_horizontal(t_jett *jett, float angle);
+/* utils.c */
+int			ft_isdigit(char *str);
+void		check_virgule(t_game *game, char *num);
+int			comp_char(char c, const char *str, int len);
 
 /* get_next_line.c */
 
-char	*get_next_line(int fd);
+char		*get_next_line(int fd);
 
 /* get_next_line.c */
 
@@ -137,11 +143,13 @@ void		parsing_arg(int argc, char **argv);
 
 void		free_tab(char **tab);
 void		free_sprite_char(t_sprite *sprite);
+void		free_model(t_model *model, void *mlx);
 void		free_game_exit(t_game *game, int exit_code);
+void		free_pic(t_game *game);
 
 /* supp.c */
 
-void    	print_tab(char **tab);
+void		print_tab(char **tab);
 
 /* create_tab.c */
 
@@ -153,14 +161,13 @@ char		**create_tab(char *file);
 /* set_struc.c */
 
 void		set_sprite(t_sprite *sprite);
-void		set_model(t_game *game);
 void		set_game(t_game *game);
 
 /* create_sprites.c */
 
 char		*cut_split_sprite(char *line, t_game *game);
 char		*split_sprite(char *line, char *dir, t_game *game);
-int 		set_sprite_value(char *tab, char **sprite, char *dir, t_game *game);
+int			set_sprite_value(char *tab, char **sprite, char *dir, t_game *game);
 void		create_sprites(t_game *game);
 
 /* create_sprites_utils.c */
@@ -171,10 +178,9 @@ int			size_path(char *line);
 int			ft_compstr(char *line, char *cmp);
 int			check_dir(char *line, char *dir);
 
-
 /* create_map.c */
 
-void		create_map(t_game *game, t_map_p map_p);
+void		create_map(t_game *game, t_map_p map_p, int k, int j);
 
 /* create_map-utils.c */
 
@@ -182,34 +188,43 @@ void		set_map_p(t_map_p *map);
 int			start_line_map(t_game *game);
 int			start_height_map(t_game *game, t_map_p	map_p);
 void		check_map_block(t_game *game, t_map_p	map_p);
-int			start_width_map(t_game *game, t_map_p map_p);
-
+int			start_width_map(t_game *game, t_map_p map_p, \
+int max, int j);
 
 /* parsing_map.c */
 
 void		check_map(t_game *game);
 void		parsing_map(t_game *game);
-void		bad_char(t_game *game);
+void		bad_char(t_game *game, int i);
 
 /* parsing_map_utils.c*/
 
 void		check_char_map(t_game *game);
-void		check_wall_line(t_game *game);
+void		check_wall_line(t_game *game, int j, int last_line);
 void		check_adjacent(int row, int col, t_game *game);
 void		check_wall_map(t_game *game);
 
 /* parsing.c */
 
-void parsing(char *file, t_game *game);
+void		parsing(char *file, t_game *game);
 
 /* create_player */
 
-void 		instance_player(t_game *game, int x, int y);
-void 		check_player_start(t_game *game, t_player p);
+void		instance_player(t_game *game, int x, int y);
+void		check_player_start(t_game *game, t_player p);
 
 /* split.c */
 
-char	**ft_split(char const *s, char c);
+char		**ft_split(char const *s, char c);
+
+/* move */
+int			check_hitbox_down(t_game *game);
+int			check_hitbox_up(t_game *game);
+void		camera_left(t_game *game, double oldirx, double oldPlanex);
+void		camera_right(t_game *game, double oldirx, double oldPlanex);
+void		move_up(t_game *game);
+void		move_down(t_game *game);
+int			move_control(t_game *game);
 
 /* libft.c */
 
@@ -220,13 +235,32 @@ int			ft_atoi(const char *nptr);
 
 /* set_mlx.c */
 
-void		*create_sprite(char *str, t_game *game); // rajouter game et tout free
-void		add_model(t_game *game);
+void		*create_sprite(char *str, t_game *game);
 void		init_mlx(t_game *game);
 
+/* math.c */
 
+void		set_math(t_game *game, int i);
+int			check_hit(t_game *game);
+void		check_side(t_game *game);
+void		put_pic(t_game *game, int i);
+void		window_image_loop(t_game *game);
 
+/* start_game.c */
+
+int			press(int keycode, t_game *game);
+int			release(int keycode, t_game *game);
+void		start_game(t_game *game);
+
+t_pic		*new_pic(t_game *img, int width, int height, int x);
 int			main(int argc, char **argv);
-void set_dir_start(t_game *game);
+int			put_texture(t_game *img, float start, int line, t_pic *texture);
+void		get_on_the_floor(t_game *img);
+void		set_dir_start(t_game *game);
+void		set_screen(t_game *game);
+int			free_game_exite(t_game *game);
+double		find_x(char **map, t_game *img);
+double		find_y(char **map, t_game *img);
+int			main(int argc, char **argv);
 
 #endif

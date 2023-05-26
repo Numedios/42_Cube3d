@@ -1,21 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/24 19:14:12 by sbelabba          #+#    #+#             */
+/*   Updated: 2023/05/25 13:32:31 by zhamdouc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	change_cord_player(t_game *game)
 {
-	game->player.x = ((((game->player.x + 1)* 64)) - 32);
-	game->player.y = ((((game->player.y + 1)* 64)) - 32);
+	game->player.x = (((game->player.x + 1) * 64)) - 32;
+	game->player.y = (((game->player.y + 1) * 64)) - 32;
 }
 
-
-void parsing(char *file, t_game *game)
+void	parsing(char *file, t_game *game)
 {
-	game->tab = create_tab(file); // get next line
-	bad_char(game); // verifie aucun caractere chelou
-	create_sprites(game); // rajoute la verification si sa depasse la taille d'un int
-	init_mlx(game); // crer la mlx et set les model des texture
-	parsing_map(game); // creation map
+	game->tab = create_tab(file);
+	bad_char(game, 0);
+	create_sprites(game);
+	init_mlx(game);
+	parsing_map(game);
 	change_cord_player(game);
 	free_tab((game->tab));
-	free_sprite_char(&game->sprite);
 	game->tab = NULL;
 }

@@ -18,7 +18,7 @@ NAME = minishell
 #==============================================================================#
 
 CC = cc
-CFLAGS = -g 
+CFLAGS = -O3 
 MLXFLAGS := -L mlx_linux -lmlx -lXext -lX11 -lz -lm
 DFLAGS = -MMD
 MKDIR = mkdir -p
@@ -57,16 +57,22 @@ SRC = main.c \
 		set_struct.c \
 		create_sprites_utils.c \
 		create_sprites.c \
+		create_sprites_bis.c \
 		create_map.c \
 		create_map_utils.c \
+		create_map_utils_bis.c \
 		parsing_map.c \
 		parsing_map_utils.c \
 		create_player.c \
 		split.c \
 		set_mlx.c \
 		libft.c \
-		2d.c \
-		2_intersection.c
+		move.c \
+		move_utils.c \
+		math.c \
+		start_game.c \
+		set_value.c \
+		utils.c \
 
 
 #==============================================================================#

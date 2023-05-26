@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_tab.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbelabba <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/24 19:05:30 by sbelabba          #+#    #+#             */
+/*   Updated: 2023/05/24 19:05:31 by sbelabba         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
-int count_char(char *str)
+int	count_char(char *str)
 {
-	int i;
-	int res;
-	
+	int	i;
+	int	res;
+
 	i = 0;
 	res = 0;
-	while(str && str[i])
+	while (str && str[i])
 	{
 		if (str[i] == '\n')
 			res++;
@@ -18,7 +30,7 @@ int count_char(char *str)
 
 int	open_fd(char *file)
 {
-	int fd;
+	int	fd;
 
 	fd = open(file, 00400);
 	if (fd == -1)
@@ -26,13 +38,13 @@ int	open_fd(char *file)
 	return (fd);
 }
 
-int count_ligne(char *str)
+int	count_ligne(char *str)
 {
 	char	buf[1024];
-	int 	rd;
-	int 	line;
+	int		rd;
+	int		line;
 	int		fd;
-	
+
 	fd = open_fd(str);
 	rd = 1024;
 	line = 0;
@@ -47,23 +59,22 @@ int count_ligne(char *str)
 		buf[rd] = '\0';
 		line += count_char(buf);
 	}
-	if (buf[rd-1] != '\n')
+	if (buf[rd - 1] != '\n')
 		line++;
 	close(fd);
-	return(line);
+	return (line);
 }
-
 
 char	**create_tab(char *file)
 {
 	int		fd;
 	char	**tab;
 	int		i;
-	int nb_ligne;
+	int		nb_ligne;
 
 	i = 0;
 	nb_ligne = count_ligne(file);
-	tab = malloc(sizeof(char*) * (nb_ligne + 1));
+	tab = malloc(sizeof(char *) * (nb_ligne + 1));
 	if (!tab)
 		exit (1);
 	fd = open(file, 00400);
@@ -80,6 +91,5 @@ char	**create_tab(char *file)
 		i++;
 	}
 	tab[i] = 0;
-	close(fd);
-	return (tab);
+	return (close(fd), tab);
 }
