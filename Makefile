@@ -92,8 +92,6 @@ OBJ = $(addprefix ${OBJ_DIR}, ${SRC:.c=.o})
 #                                   LIBS                                       #
 #==============================================================================#
 
-MLX := mlx_linux/libmlx_Linux.a
-
 
 #==============================================================================#
 #                                   MAKEFILE                                   #
@@ -103,7 +101,7 @@ all : $(NAME)
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEAD_NAME)
 	mkdir -p ${@D}
-	$(CC) $(CFLAGS) $(DFLAGS) ${MLX} $(MEM) $(INC) -c $< -o $@
+	$(CC) $(CFLAGS) $(DFLAGS) $(MEM) $(INC) -c $< -o $@
 
 $(NAME) : $(OBJ)
 	echo "$(YELLOW)Making cube3d$(END)"
