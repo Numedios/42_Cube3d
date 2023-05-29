@@ -12,11 +12,6 @@
 
 #include "cub3d.h"
 
-/* 
-	cherche si search est les dernier caractere de str
-	utile pour.cub
-*/
-
 void	ft_strstrend(char *str, char *search)
 {
 	int	i;
@@ -37,9 +32,6 @@ void	ft_strstrend(char *str, char *search)
 	}
 }
 
-/*
-	voit si le fichier file s'ouvre avec l'option de lecture
-*/
 void	ft_try_open(char *file)
 {
 	int	fd;
@@ -53,9 +45,6 @@ void	ft_try_open(char *file)
 	close(fd);
 }
 
-/*
-	verifie que l'argument du main existe et est valide
-*/
 void	parsing_arg(int argc, char **argv)
 {
 	if (argc != 1)
