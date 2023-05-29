@@ -6,11 +6,11 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:19:10 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/25 13:17:54 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "cub3d.h"
 
 void	set_dir_start_2(t_game *game)
 {
@@ -55,7 +55,7 @@ void	set_screen(t_game *game)
 	game->screen.length = 1480;
 }
 
-double	find_x(char **map, t_game *img)
+double	find_x(char **map)
 {
 	int	i;
 	int	j;
@@ -64,8 +64,8 @@ double	find_x(char **map, t_game *img)
 	while (map[i])
 	{
 		j = 0;
-		while (map[i][j] && map[i][j] == '0' || map[i][j]
-			&& map[i][j] == '1' || map[i][j] && map[i][j] == ' ')
+		while ((map[i][j] && map[i][j] == '0') || (map[i][j]
+			&& map[i][j] == '1') || (map[i][j] && map[i][j] == ' '))
 			j++;
 		if (map[i][j] && map[i][j] != '0' && map[i][j]
 			&& map[i][j] != '1' && map[i][j] && map[i][j] != ' ')
@@ -75,7 +75,7 @@ double	find_x(char **map, t_game *img)
 	return (0);
 }
 
-double	find_y(char **map, t_game *img)
+double	find_y(char **map)
 {
 	int	i;
 	int	j;
@@ -84,8 +84,8 @@ double	find_y(char **map, t_game *img)
 	while (map[i])
 	{
 		j = 0;
-		while (map[i][j] && map[i][j] == '0' || map[i][j]
-			&& map[i][j] == '1' || map[i][j] && map[i][j] == ' ')
+		while ((map[i][j] && map[i][j] == '0') || (map[i][j]
+			&& map[i][j] == '1') || (map[i][j] && map[i][j] == ' '))
 			j++;
 		if (map[i][j] && map[i][j] != '0' && map[i][j]
 			&& map[i][j] != '1' && map[i][j] && map[i][j] != ' ')

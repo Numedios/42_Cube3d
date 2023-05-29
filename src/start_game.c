@@ -6,11 +6,11 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:15:07 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/25 14:07:56 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "cub3d.h"
 
 int	press(int keycode, t_game *game)
 {
@@ -30,8 +30,8 @@ void	start_game(t_game *game)
 {
 	game->key = 0;
 	set_screen(game);
-	game->x = find_x(game->map, game);
-	game->y = find_y(game->map, game);
+	game->x = find_x(game->map);
+	game->y = find_y(game->map);
 	game->north = new_pic(game, 0, 0, 1);
 	game->east = new_pic(game, 0, 0, 2);
 	game->west = new_pic(game, 0, 0, 3);

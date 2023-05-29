@@ -6,11 +6,11 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:34:38 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/05/26 15:38:34 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "cub3d.h"
 
 int	ft_isdigit(char *str)
 {

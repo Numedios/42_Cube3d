@@ -6,11 +6,11 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 17:56:09 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/25 14:06:36 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "cub3d.h"
 
 void	camera_left(t_game *game, double oldirx, double oldPlanex)
 {

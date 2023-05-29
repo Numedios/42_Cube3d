@@ -6,11 +6,11 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:45:43 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/05/26 15:35:39 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "cub3d.h"
 
 char	*cut_split_sprite(char *line, t_game *game)
 {
@@ -35,7 +35,7 @@ char	*cut_split_sprite(char *line, t_game *game)
 	return (res);
 }
 
-void	split_sprite_2(char *line, t_game *game, int *i)
+void	split_sprite_2(char *line, int *i)
 {
 	(*i) = (*i) + 2;
 	while (line && line[(*i)] && line[(*i)] == ' ')
@@ -60,7 +60,7 @@ char	*split_sprite(char *line, char *dir, t_game *game)
 			i++;
 		if (ft_compstr(line + i, dir))
 			res = cut_split_sprite(line + (i + 2), game);
-		split_sprite_2(line, game, &i);
+		split_sprite_2(line, &i);
 		if (line && line[i] && line[i] != ' '
 			&& line[i] != '\r' && line[i] != '\n')
 		{

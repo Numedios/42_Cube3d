@@ -6,11 +6,11 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:05:21 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/26 15:51:55 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "cub3d.h"
 
 void	set_math(t_game *game, int i)
 {
@@ -87,7 +87,6 @@ void	put_pic(t_game *game, int i)
 	int	line;
 	int	start;
 	int	end;
-	int	color;
 
 	line = (int)(game->screen.height / game->wall);
 	if (line > 200000)

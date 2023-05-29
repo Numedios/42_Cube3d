@@ -6,11 +6,11 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:36 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/26 15:38:00 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "cub3d.h"
 
 void	check_wall_line(t_game *game, int j, int last_line)
 {
@@ -59,8 +59,6 @@ void	check_adjacent_4(int row, int col, t_game *game)
 
 void	check_adjacent_3(int row, int col, t_game *game)
 {
-	int	res;
-
 	if (game->map[row + 1] && !game->map[row + 1][col]
 		&& comp_char(game->map[row + 1][col], "01EWSN", 6))
 	{

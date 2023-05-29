@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   cub3d.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include <stdio.h>
 # include <stdlib.h>
@@ -259,8 +259,8 @@ void		get_on_the_floor(t_game *img);
 void		set_dir_start(t_game *game);
 void		set_screen(t_game *game);
 int			free_game_exite(t_game *game);
-double		find_x(char **map, t_game *img);
-double		find_y(char **map, t_game *img);
+double		find_x(char **map);
+double		find_y(char **map);
 int			main(int argc, char **argv);
 
 #endif

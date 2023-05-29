@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "cub3d.h"
 
 t_pic	*new_pic(t_game *img, int width, int height, int x)
 {

@@ -11,15 +11,15 @@ endif
 #                                   TARGETS                                    #
 #==============================================================================#
 
-NAME = minishell
+NAME = Cub3d
 
 #==============================================================================#
 #                                   COMMANDS                                   #
 #==============================================================================#
 
-CC = cc
-CFLAGS = -O3 
-MLXFLAGS := -L mlx_linux -lmlx -lXext -lX11 -lz -lm
+CC := cc
+CFLAGS := -Wall -Wextra -Werror
+MLXFLAGS := -L./mlx_linux -lmlx -lXext -lX11 -lz -lm
 DFLAGS = -MMD
 MKDIR = mkdir -p
 RM = rm -f
@@ -79,7 +79,7 @@ SRC = main.c \
 #                                   HEADERS                                    #
 #==============================================================================#
 
-HEAD_NAME = $(HEADER_DIR)/minishell.h
+HEAD_NAME = $(HEADER_DIR)/cub3d.h
 INC = -I./$(HEADER_DIR)
 
 #==============================================================================#
@@ -104,13 +104,15 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEAD_NAME)
 	$(CC) $(CFLAGS) $(DFLAGS) $(MEM) $(INC) -c $< -o $@
 
 $(NAME) : $(OBJ)
-	echo "$(YELLOW)Making cube3d$(END)"
-	$(CC) $(CFLAGS) $(OBJ) ${MLXFLAGS} -o $(NAME) -lreadline
-	echo "$(GREEN)Done$(END)"
+	@make --no-print-directory -C ./mlx_linux
+	@echo "$(YELLOW)Making cube3d$(END)"
+	@$(CC) $(CFLAGS) $(OBJ) ${MLXFLAGS} -o $(NAME) 
+	@echo Done
 
 bonus : all
 
 clean :
+	@make $@ --no-print-directory -C ./mlx_linux
 	echo "$(PURPLE)Cleaning cube3d objects...$(END)"
 	$(RM)r $(OBJ_DIR)
 	echo "$(GREEN)Done$(END)"
@@ -125,3 +127,4 @@ re : fclean
 
 .PHONY : all clean fclean re bonus
 .SILENT :
+

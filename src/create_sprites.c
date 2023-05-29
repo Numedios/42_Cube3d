@@ -6,11 +6,11 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 19:00:58 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/26 15:35:33 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "cub3d.h"
 
 void	check_color_sprite_2(t_game *game, int *set, int i, char **pos)
 {
@@ -28,7 +28,7 @@ void	check_color_sprite_2(t_game *game, int *set, int i, char **pos)
 	}
 }
 
-void	check_color_sprite_3(t_game *game, int *set, int i, char **pos)
+void	check_color_sprite_3(t_game *game, int i, char **pos)
 {
 	while (pos && pos[i])
 	{
@@ -47,11 +47,8 @@ void	check_color_sprite(t_game *game, char *num, int *set)
 {
 	char	**pos;
 
-	if (num)
-	{
-		check_virgule(game, num);
-		pos = ft_split(num, ',');
-	}
+	check_virgule(game, num);
+	pos = ft_split(num, ',');
 	if (!pos || ft_strlen_tab(pos) != 3)
 	{
 		if (pos)
@@ -60,7 +57,7 @@ void	check_color_sprite(t_game *game, char *num, int *set)
 		free_game_exit(game, 1);
 	}
 	check_color_sprite_2(game, set, 0, pos);
-	check_color_sprite_3(game, set, 0, pos);
+	check_color_sprite_3(game, 0, pos);
 	if (pos)
 		free_tab(pos);
 }
