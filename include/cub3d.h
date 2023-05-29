@@ -27,17 +27,17 @@
 # include <math.h>
 # include "../mlx_linux/mlx.h"
 
-typedef struct map_p //sert uniquement au parsing
+typedef struct map_p
 {
 	int	start;
 	int	height;
 	int	max_widht;
 }			t_map_p;
 
-typedef struct sprite //sert uniquement au parsing
+typedef struct sprite
 {
 	char	*north;
-	char	*sud;
+	char	*south;
 	char	*east;
 	char	*west;
 	char	*bot;
@@ -121,7 +121,7 @@ typedef struct s_game
 
 /* utils.c */
 int			ft_isdigit(char *str);
-void		check_virgule(t_game *game, char *num);
+void		check_comma(t_game *game, char *num);
 int			comp_char(char c, const char *str, int len);
 
 /* get_next_line.c */
@@ -151,7 +151,7 @@ void		free_pic(t_game *game);
 
 int			count_char(char *str);
 int			open_fd(char *file);
-int			count_ligne(char *str);
+int			count_line(char *str);
 char		**create_tab(char *file);
 
 /* set_struc.c */
@@ -168,7 +168,7 @@ void		create_sprites(t_game *game);
 
 /* create_sprites_utils.c */
 
-int			check_sprite(char *str, void *mlx);
+int			check_sprite(char *str, void *mlx, t_game *game);
 int			check_all_sprite(t_game *game);
 int			size_path(char *line);
 int			ft_compstr(char *line, char *cmp);

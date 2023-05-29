@@ -6,13 +6,11 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:56:23 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:04:44 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/* check si la map est en 1 block */
 
 void	space_skip(t_game *game, t_map_p map_p, int k, int *j)
 {

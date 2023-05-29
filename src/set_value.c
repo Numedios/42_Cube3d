@@ -6,13 +6,13 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:19:10 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:15:42 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	set_dir_start_2(t_game *game)
+void	set_dir_start_two(t_game *game)
 {
 	if (game->map[game->player.x]
 		&& game->map[game->player.x][game->player.y] == 'E')
@@ -46,7 +46,7 @@ void	set_dir_start(t_game *game)
 		game->player.planex = 0;
 		game->player.planey = -0.66;
 	}
-	set_dir_start_2(game);
+	set_dir_start_two(game);
 }
 
 void	set_screen(t_game *game)

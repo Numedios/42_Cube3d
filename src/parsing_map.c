@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:28 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/29 17:54:15 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:14:47 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	bad_char(t_game *game, int i)
 	}
 }
 
-void	check_char_map_2(t_game *game, int *player, int *i, int *j)
+void	check_char_map_two(t_game *game, int *player, int *i, int *j)
 {
 	while (game->map[(*i)] && game->map[(*i)][(*j)])
 	{
@@ -106,7 +106,7 @@ void	check_char_map(t_game *game)
 	while (game->map && game->map[i])
 	{
 		j = 0;
-		check_char_map_2(game, &player, &i, &j);
+		check_char_map_two(game, &player, &i, &j);
 		i++;
 	}
 	if (player != 1)

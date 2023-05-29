@@ -6,13 +6,13 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 19:00:58 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/29 17:52:52 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:09:44 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	check_color_sprite_2(t_game *game, int *set, int i, char **pos)
+void	check_color_sprite_two(t_game *game, int *set, int i, char **pos)
 {
 	while (pos && pos[i])
 	{
@@ -28,7 +28,7 @@ void	check_color_sprite_2(t_game *game, int *set, int i, char **pos)
 	}
 }
 
-void	check_color_sprite_3(t_game *game, int i, char **pos)
+void	check_color_sprite_three(t_game *game, int i, char **pos)
 {
 	while (pos && pos[i])
 	{
@@ -47,7 +47,7 @@ void	check_color_sprite(t_game *game, char *num, int *set)
 {
 	char	**pos;
 
-	check_virgule(game, num);
+	check_comma(game, num);
 	pos = ft_split(num, ',');
 	if (!pos || ft_strlen_tab(pos) != 3)
 	{
@@ -56,8 +56,8 @@ void	check_color_sprite(t_game *game, char *num, int *set)
 		printf("Error :\n\"%s\" plus de 3 couleur (R,G,B)\n", num);
 		free_game_exit(game, 1);
 	}
-	check_color_sprite_2(game, set, 0, pos);
-	check_color_sprite_3(game, 0, pos);
+	check_color_sprite_two(game, set, 0, pos);
+	check_color_sprite_three(game, 0, pos);
 	if (pos)
 		free_tab(pos);
 }
@@ -76,7 +76,7 @@ void	create_sprites(t_game *game)
 	while (game->tab && game->tab[i])
 	{
 		set_sprite_value(game->tab[i], &game->sprite.north, "NO", game);
-		set_sprite_value(game->tab[i], &game->sprite.sud, "SO", game);
+		set_sprite_value(game->tab[i], &game->sprite.south, "SO", game);
 		set_sprite_value(game->tab[i], &game->sprite.east, "EA", game);
 		set_sprite_value(game->tab[i], &game->sprite.west, "WE", game);
 		set_sprite_value(game->tab[i], &game->sprite.bot, "F", game);

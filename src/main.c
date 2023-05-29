@@ -33,7 +33,7 @@ t_pic	*new_pic(t_game *img, int width, int height, int x)
 		new->img = mlx_xpm_file_to_image(img->mlx, img->sprite.west, \
 		&new->width, &new->height);
 	else if (x == 4)
-		new->img = mlx_xpm_file_to_image(img->mlx, img->sprite.sud, \
+		new->img = mlx_xpm_file_to_image(img->mlx, img->sprite.south, \
 		&new->width, &new->height);
 	else
 		new->img = mlx_new_image(img->mlx, width, height);

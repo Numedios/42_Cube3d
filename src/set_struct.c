@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 19:38:46 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:09:44 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	set_sprite(t_sprite *sprite)
 {
 	sprite->north = NULL;
-	sprite->sud = NULL;
+	sprite->south = NULL;
 	sprite->east = NULL;
 	sprite->west = NULL;
 	sprite->bot = NULL;

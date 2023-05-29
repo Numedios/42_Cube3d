@@ -32,9 +32,9 @@ void	free_sprite_char(t_sprite *sprite)
 	if (sprite->north)
 		free(sprite->north);
 	sprite->north = NULL;
-	if (sprite->sud)
-		free(sprite->sud);
-	sprite->sud = NULL;
+	if (sprite->south)
+		free(sprite->south);
+	sprite->south = NULL;
 	if (sprite->east)
 		free(sprite->east);
 	sprite->east = NULL;

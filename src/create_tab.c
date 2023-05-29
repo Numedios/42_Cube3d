@@ -38,7 +38,7 @@ int	open_fd(char *file)
 	return (fd);
 }
 
-int	count_ligne(char *str)
+int	count_line(char *str)
 {
 	char	buf[1024];
 	int		rd;
@@ -70,17 +70,17 @@ char	**create_tab(char *file)
 	int		fd;
 	char	**tab;
 	int		i;
-	int		nb_ligne;
+	int		nb_line;
 
 	i = 0;
-	nb_ligne = count_ligne(file);
-	tab = malloc(sizeof(char *) * (nb_ligne + 1));
+	nb_line = count_line(file);
+	tab = malloc(sizeof(char *) * (nb_line + 1));
 	if (!tab)
 		exit (1);
 	fd = open(file, 00400);
 	if (fd == -1)
 		free(tab);
-	while (i < nb_ligne)
+	while (i < nb_line)
 	{
 		tab[i] = get_next_line(fd);
 		if (!tab[i])

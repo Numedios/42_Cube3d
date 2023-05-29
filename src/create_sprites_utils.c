@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:58:22 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/29 17:52:37 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:09:44 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  rajouter game et tout free
 */
 
-int	check_sprite(char *str, void *mlx)
+int	check_sprite(char *str, void *mlx, t_game *game)
 {
 	void	*img;
 	int		img_width;
@@ -28,7 +28,7 @@ int	check_sprite(char *str, void *mlx)
 				&img_width, &img_height);
 	if (!img)
 	{
-		return (0);
+		free_game_exit(game, 1);
 	}
 	if (img)
 		mlx_destroy_image(mlx, img);
@@ -44,10 +44,10 @@ int	check_all_sprite(t_game *game)
 	mlx = mlx_init();
 	if (!mlx)
 		return (0);
-	res += check_sprite(game->sprite.north, mlx);
-	res += check_sprite(game->sprite.sud, mlx);
-	res += check_sprite(game->sprite.east, mlx);
-	res += check_sprite(game->sprite.west, mlx);
+	res += check_sprite(game->sprite.north, mlx, game);
+	res += check_sprite(game->sprite.south, mlx, game);
+	res += check_sprite(game->sprite.east, mlx, game);
+	res += check_sprite(game->sprite.west, mlx, game);
 	if (res != 4)
 	{
 		printf("ERROR :\nun sprite n'existe pas\n");

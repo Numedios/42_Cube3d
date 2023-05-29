@@ -6,13 +6,13 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:21:45 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/05/29 17:51:54 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:03:37 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	start_height_map_2(t_game *game, int *i)
+void	start_height_map_two(t_game *game, int *i)
 {
 	int	j;
 
@@ -68,11 +68,11 @@ int	start_height_map(t_game *game, t_map_p	map_p)
 			return (i - map_p.start);
 		i++;
 	}
-	start_height_map_2(game, &i);
+	start_height_map_two(game, &i);
 	return (i - map_p.start);
 }
 
-void	check_map_block_2(t_game *game, int i, int j)
+void	check_map_block_two(t_game *game, int i, int j)
 {
 	while (game->tab && game->tab[i])
 	{
@@ -112,5 +112,5 @@ void	check_map_block(t_game *game, t_map_p	map_p)
 			break ;
 		i++;
 	}
-	check_map_block_2(game, i, j);
+	check_map_block_two(game, i, j);
 }

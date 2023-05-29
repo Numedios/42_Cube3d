@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:34:38 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/05/29 17:54:34 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:08:37 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_isdigit(char *str)
 	return (1);
 }
 
-void	check_virgule(t_game *game, char *num)
+void	check_comma(t_game *game, char *num)
 {
 	int	i;
 	int	c;
@@ -43,7 +43,7 @@ void	check_virgule(t_game *game, char *num)
 	}
 	if (c != 2)
 	{
-		printf("Error :\n\"%s\" %d virgule au lieu de 2 \n", num, c);
+		printf("Error :\n\"%s\" %d comma au lieu de 2 \n", num, c);
 		free_game_exit(game, 1);
 	}
 }
