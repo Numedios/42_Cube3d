@@ -1,0 +1,13 @@
+
+
+SO     ./tx/64/walls.xpm
+
+NO ./tx/64/walln.xpm
+EA ./tx/64/walle.xpm
+
+
+WE ./tx/64/wallw.xpm
+
+F 20,20,20
+C   255,30,0
+
