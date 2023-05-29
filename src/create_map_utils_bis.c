@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:21:45 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:51:54 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	start_height_map(t_game *game, t_map_p	map_p)
 	i = map_p.start;
 	if (i == -1)
 	{
-		printf("Error : start_height");
+		printf("Error :\nstart_height\n");
 		free_game_exit(game, 1);
 	}
 	while (game->tab && game->tab[i])
@@ -98,7 +98,7 @@ void	check_map_block(t_game *game, t_map_p	map_p)
 	i = map_p.start;
 	if (i == -1)
 	{
-		printf("Error : check map block\n");
+		printf("Error :\ncheck map block\n");
 		free_game_exit(game, 1);
 	}
 	while (game->tab && game->tab[i])

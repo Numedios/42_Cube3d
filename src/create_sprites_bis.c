@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:45:43 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:52:22 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*split_sprite(char *line, char *dir, t_game *game)
 		if (line && line[i] && line[i] != ' '
 			&& line[i] != '\r' && line[i] != '\n')
 		{
-			printf("ERROR : plusieur chemin pour %s\n", dir);
+			printf("ERROR :\nplusieur chemin pour %s\n", dir);
 			if (res)
 				free(res);
 			free_game_exit(game, 1);
@@ -87,7 +87,7 @@ int	set_sprite_value(char *tab, char **sprite, char *dir, t_game *game)
 		}
 		else
 		{
-			printf("Error: sprite %s already exists.\n", dir);
+			printf("Error:\nsprite %s already exists.\n", dir);
 			free_game_exit(game, 1);
 		}
 	}

@@ -147,10 +147,6 @@ void		free_model(t_model *model, void *mlx);
 void		free_game_exit(t_game *game, int exit_code);
 void		free_pic(t_game *game);
 
-/* supp.c */
-
-void		print_tab(char **tab);
-
 /* create_tab.c */
 
 int			count_char(char *str);
@@ -262,5 +258,9 @@ int			free_game_exite(t_game *game);
 double		find_x(char **map);
 double		find_y(char **map);
 int			main(int argc, char **argv);
+
+/* move_utils_bis.c.c */
+int			check_hitbox_right(t_game *game);
+int			check_hitbox_left(t_game *game);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:46:28 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:54:15 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@ void	parsing_map(t_game *game)
 	map_p.start = start_line_map(game);
 	if (map_p.start < 0)
 	{
-		printf("ERROR : map introuvable\n");
+		printf("ERROR :\nmap introuvable\n");
 		free_game_exit(game, 1);
 	}
 	check_map_block(game, map_p);
 	map_p.height = start_height_map(game, map_p);
 	if (map_p.height <= 0)
 	{
-		printf("ERROR : map pas assez haute\n");
+		printf("ERROR :\nmap pas assez haute\n");
 		free_game_exit(game, 1);
 	}
 	map_p.max_widht = start_width_map(game, map_p, 0, 0);
 	if (map_p.max_widht <= 0)
 	{
-		printf("ERROR : map pas assez longue \n");
+		printf("ERROR :\nmap pas assez longue \n");
 		free_game_exit(game, 1);
 	}
 	game->map_p = map_p;
@@ -68,7 +68,7 @@ void	bad_char(t_game *game, int i)
 			&& !ft_compstr(game->tab[i] + j, "1")
 			&& (game->tab[i][j]) != '\r' && (game->tab[i][j]) != '\n')
 		{
-			printf("ERROR : L%d %s\n", i + 1, game->tab[i] + j);
+			printf("ERROR :\nL%d %s\n", i + 1, game->tab[i] + j);
 			free_game_exit(game, 1);
 		}
 		i++;
@@ -82,7 +82,7 @@ void	check_char_map_2(t_game *game, int *player, int *i, int *j)
 		if (game->map[(*i)][(*j)]
 			&& !check_sep(game->map[(*i)][(*j)], " 10NSWE"))
 		{
-			printf("ERROR : Map L%d = %s // *%c*\n", (*i), game->map[(*i)],
+			printf("ERROR :\nMap L%d = %s // *%c*\n", (*i), game->map[(*i)],
 				game->map[(*i)][(*j)]);
 			free_game_exit(game, 1);
 		}
@@ -111,7 +111,7 @@ void	check_char_map(t_game *game)
 	}
 	if (player != 1)
 	{
-		printf("ERRROR : multiple ou aucun position de joueur\n");
+		printf("ERROR :\nmultiple ou aucun position de joueur\n");
 		free_game_exit(game, 1);
 	}
 	check_player_start(game, game->player);

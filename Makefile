@@ -51,7 +51,6 @@ SRC = main.c \
 		get_next_line_utils.c \
 		parsing_arg.c \
 		parsing.c \
-		supp.c \
 		free.c \
 		create_tab.c \
 		set_struct.c \
@@ -73,6 +72,7 @@ SRC = main.c \
 		start_game.c \
 		set_value.c \
 		utils.c \
+		move_utils_bis.c \
 
 
 #==============================================================================#

@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 19:00:58 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:52:52 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	check_color_sprite_2(t_game *game, int *set, int i, char **pos)
 		set[i] = ft_atoi(pos[i]);
 		if (set[i] && (set[i] < 0 || set[i] > 255))
 		{
-			printf("Error : couleur %d pqs compris entre 0 et 255\n", set[i]);
+			printf("Error :\ncouleur %d pqs compris entre 0 et 255\n", set[i]);
 			if (pos)
 				free_tab(pos);
 			free_game_exit(game, 1);
@@ -34,7 +34,7 @@ void	check_color_sprite_3(t_game *game, int i, char **pos)
 	{
 		if (ft_isdigit(pos[i]) == 0)
 		{
-			printf("Error : couleur %s n'est pas un nombre\n", pos[i]);
+			printf("Error :\ncouleur %s n'est pas un nombre\n", pos[i]);
 			if (pos)
 				free_tab(pos);
 			free_game_exit(game, 1);
@@ -53,7 +53,7 @@ void	check_color_sprite(t_game *game, char *num, int *set)
 	{
 		if (pos)
 			free_tab(pos);
-		printf("Error : \"%s\" plus de 3 couleur (R,G,B)\n", num);
+		printf("Error :\n\"%s\" plus de 3 couleur (R,G,B)\n", num);
 		free_game_exit(game, 1);
 	}
 	check_color_sprite_2(game, set, 0, pos);

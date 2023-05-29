@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:34:38 by zhamdouc          #+#    #+#             */
-/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:54:34 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	check_virgule(t_game *game, char *num)
 	}
 	if (c != 2)
 	{
-		printf("Error : \"%s\" %d virgule au lieu de 2 \n", num, c);
+		printf("Error :\n\"%s\" %d virgule au lieu de 2 \n", num, c);
 		free_game_exit(game, 1);
 	}
 }
@@ -67,14 +67,14 @@ void	check_adjacent_2(int row, int col, t_game *game)
 	if (game->map[row] && game->map[row][col + 1]
 		&& comp_char(game->map[row][col + 1], " 1\r", 3))
 	{
-		printf("ERROR : col + 1 map non fermer \n %s // *%c*\n", game->map[row],
+		printf("ERROR :\ncol + 1 map non fermer \n %s // *%c*\n", game->map[row],
 			game->map[row][col + 1]);
 		free_game_exit(game, 1);
 	}
 	if (col > 0 && game->map[row] && game->map[row][col - 1]
 		&& comp_char(game->map[row][col - 1], " 1\r", 3))
 	{
-		printf("ERROR : col -1 map non fermer \n %s // *%c*\n", game->map[row],
+		printf("ERROR :\ncol -1 map non fermer \n %s // *%c*\n", game->map[row],
 			game->map[row][col - 1]);
 		free_game_exit(game, 1);
 	}
@@ -85,14 +85,14 @@ void	check_adjacent(int row, int col, t_game *game)
 	if (game->map[row + 1] && game->map[row + 1][col]
 		&& comp_char(game->map[row + 1][col], " 1\r", 3))
 	{
-		printf("ERROR : row + 1 map non fermer \n %s // *%c*\n", game->map[row],
+		printf("ERROR :\nrow + 1 map non fermer \n %s // *%c*\n", game->map[row],
 			game->map[row + 1][col]);
 		free_game_exit(game, 1);
 	}
 	if (row > 0 && game->map[row - 1] && game->map[row - 1][col]
 		&& comp_char(game->map[row - 1][col], " 1\r", 3))
 	{
-		printf("ERROR : row - 1 map non fermer \n %s // *%c*\n", game->map[row],
+		printf("ERROR :\nrow - 1 map non fermer \n %s // *%c*\n", game->map[row],
 			game->map[row - 1][col]);
 		free_game_exit(game, 1);
 	}

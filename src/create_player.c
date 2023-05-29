@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:57:10 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:52:08 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	check_player_start(t_game *game, t_player p)
 {
 	if (p.x == 0 || p.y == 0)
 	{
-		printf("ERROR : Le joueur est sur un bord %s\n", game->map[p.x]);
+		printf("ERROR :\nLe joueur est sur un bord %s\n", game->map[p.x]);
 		free_game_exit(game, 1);
 	}
 	if (game->map[p.x + 1] && game->map[p.x + 1][p.y])
@@ -24,7 +24,7 @@ void	check_player_start(t_game *game, t_player p)
 			if (game->map[p.x] && game->map[p.x][p.y + 1])
 				if (game->map[p.x] && game->map[p.x][p.y - 1])
 					return ;
-	printf("ERROR : Le joueur est sur un bord %s\n", game->map[p.x]);
+	printf("ERROR :\nLe joueur est sur un bord %s\n", game->map[p.x]);
 	free_game_exit(game, 1);
 }
 

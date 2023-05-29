@@ -30,7 +30,7 @@ void	ft_strstrend(char *str, char *search)
 	{
 		if (search[i] != str[i])
 		{
-			printf("ERROR : fichier ne fini pas par %s\n", search);
+			printf("ERROR :\nfichier ne fini pas par %s\n", search);
 			exit (1);
 		}
 		i++;
@@ -47,7 +47,7 @@ void	ft_try_open(char *file)
 	fd = open(file, 00400);
 	if (fd == -1)
 	{
-		printf("ERROR : fichier %s invalide \n", file);
+		printf("ERROR :\nfichier %s invalide \n", file);
 		exit (1);
 	}
 	close(fd);
@@ -60,7 +60,7 @@ void	parsing_arg(int argc, char **argv)
 {
 	if (argc != 1)
 	{
-		printf("ERROR : argc = %d\n", argc);
+		printf("ERROR :\nargc = %d\n", argc);
 		exit (0);
 	}
 	ft_strstrend(argv[0], ".cub");

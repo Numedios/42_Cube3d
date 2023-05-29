@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:58:22 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:52:37 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check_all_sprite(t_game *game)
 	res += check_sprite(game->sprite.west, mlx);
 	if (res != 4)
 	{
-		printf("error un sprite n'existe pas\n");
+		printf("ERROR :\nun sprite n'existe pas\n");
 		mlx_destroy_display(mlx);
 		free(mlx);
 		free_game_exit(game, 1);

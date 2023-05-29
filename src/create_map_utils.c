@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 18:52:55 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/29 16:18:45 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:52:00 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	start_width_map(t_game *game, t_map_p map_p, int max, int j)
 	i = map_p.start;
 	if (i == -1)
 	{
-		printf("Error : start_width map");
+		printf("Error :\nstart_width map\n");
 		free_game_exit(game, 1);
 	}
 	while (game->tab && game->tab[i])
