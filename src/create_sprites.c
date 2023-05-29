@@ -6,7 +6,7 @@
 /*   By: zhamdouc <zhamdouc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 19:00:58 by sbelabba          #+#    #+#             */
-/*   Updated: 2023/05/29 18:09:44 by zhamdouc         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:18:07 by zhamdouc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	check_color_sprite_two(t_game *game, int *set, int i, char **pos)
 		set[i] = ft_atoi(pos[i]);
 		if (set[i] && (set[i] < 0 || set[i] > 255))
 		{
-			printf("Error :\ncouleur %d pqs compris entre 0 et 255\n", set[i]);
+			printf("Error :\ncouleur %d pas compris entre 0 et 255\n", set[i]);
 			if (pos)
 				free_tab(pos);
 			free_game_exit(game, 1);
