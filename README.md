@@ -22,7 +22,7 @@ This project is an exploration of ray-casting (a rendering technique capable of 
 
 Running the program :
 
-I add a file with maps you can use, these are fairly basic cards that you can modify. Files used as maps must consist of 0 and 1, and maps must be firm. In addition, files must have a '.cub' extension. The first 4 lines of information correspond to the textures of the South, North, East and West walls. Then we have the sky and ground colors.
+I add a repertory with maps you can use, these are fairly basic cards that you can modify. Files used as maps must consist of 0 and 1, and maps must be firm. In addition, files must have a '.cub' extension. The first 4 lines of information correspond to the textures of the South, North, East and West walls. Then we have the sky and ground colors.
 
 ```bash
   make && ./cub3D [map]
