@@ -1,6 +1,6 @@
 # Cub3d-linux
 
-[Cub3d](image.png)
+![Cub3d presentation](image.png)
 
 [**Subject :**](https://cdn.intra.42.fr/pdf/pdf/105492/fr.subject.pdf)
 
